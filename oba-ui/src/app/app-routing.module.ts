@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {TanSelectionComponent} from "./ais/consent/tan-selection/tan-selection.component";
 
-const routes: Routes = [];
+const routes: Routes = [{
+  path: 'ais/consent/select-tan',
+  component: TanSelectionComponent
+}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
