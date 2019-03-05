@@ -21,7 +21,7 @@
           <li>Your Accounts Balance</li>
         </ul>
         <div *ngIf="profile$ | async as profile">
-          <ul>Your Account Transactions for the last {{profile.transactionLifetime}} months
+          <ul>Your Account Transactions for the last {{profile.transactionLifetime}} 2 months
             <li>incoming and outgoing Transactions</li>
           </ul>
         </div>
@@ -29,14 +29,43 @@
           <li>The Type of Accounts you have</li>
           <li>The Fees, Charges and Interests you pay</li>
         </ul>
-        <ul>Your Regular PaymentsNew:
+        <ul>Your Regular Payments New:
           <li>Your direct Debits</li>
           <li>Your standing Orders</li>
         </ul>
       </ul>
+
+       <!--TAN selection-->
       <div>
-        TPP will access your accounts till {{ consent?.validUntil }}
+        <h1 class="container__title">Select TAN method</h1>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"
+                 type="radio"
+                 id="scaUserDataEmail"
+                 name="scaMethod"
+                 value="EMAIL">
+          <label class="form-check-label" for="scaUserDataEmail">
+            volodymyr.nechai@gmail.com
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"
+                 type="radio"
+                 id="scaUserDataPhone"
+                 name="scaMethod"
+                 value="PHONE" checked>
+          <label class="form-check-label" for="scaUserDataPhone">
+            +49124848464648
+          </label>
+        </div>
       </div>
+
+      <hr/>
+
+      <div>
+        TPP will access your accounts till {{ consentValidTo | date:'medium' }}
+      </div>
+
       <div class="buttons-small">
         <button (click)=onClickCancel() type="button" name="decision" value="revoked"
                 class="buttons-small btn--cancel">
