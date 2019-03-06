@@ -1,3 +1,13 @@
-<p>
-  login works!
-</p>
+<div class="alert alert-info">
+  <strong>Normal User</strong> - U: user P: user<br />
+</div>
+<h2>Login-page</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for=>login</label>
+    <input type="text" formControlName="login" class="form-control" [ngClass]="{ 'is-invalid': submitted }" />
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+      <div *ngIf="">login is required</div>
+    </div>
+  </div>
+</form>
