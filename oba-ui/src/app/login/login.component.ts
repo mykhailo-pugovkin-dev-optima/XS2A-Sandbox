@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
-import {PSUAISService} from "../../../services/psuais.service";
+import {PSUAISService} from "../services/psuais.service";
 
 @Component({
   selector: 'ais-login',

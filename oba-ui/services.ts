@@ -1,3 +1,3 @@
-export { PSUAISService } from './services/psuais.service';
-export { PSUPISService } from './services/psupis.service';
-export { PSUSCAService } from './services/psusca.service';
+export { PSUAISService } from './src/app/services/psuais.service';
+export { PSUPISService } from './src/app/services/psupis.service';
+export { PSUSCAService } from './src/app/services/psusca.service';

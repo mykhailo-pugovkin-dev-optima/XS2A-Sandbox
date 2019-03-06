@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {TanSelectionComponent} from "./ais/consent/tan-selection/tan-selection.component";
 
 const routes: Routes = [{
-  path: 'ais/consent/select-tan',
+  path: 'ais/auth',
   component: TanSelectionComponent
 }
 ];

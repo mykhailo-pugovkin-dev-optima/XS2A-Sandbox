@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Account} from "../../../models/account";
-import {Balance} from "../../../models/balance";
+import {Account} from "../../../model/account";
+import {Balance} from "../../../model/balance";
 import BalanceTypeEnum = Balance.BalanceTypeEnum;
-import {Amount} from "../../../models/amount";
+import {Amount} from "../../../model/amount";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-tan-selection',
@@ -11,13 +12,32 @@ import {Amount} from "../../../models/amount";
 })
 export class TanSelectionComponent implements OnInit {
 
+  authorisationId: string;
+  encryptedConsentId: string;
+  scaMethodId: string;
+
+
   accounts: Account[] = [];
   consentValidTo = new Date('2019-05-01');
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.encryptedConsentId = params['encryptedConsentId'];
+      console.log(this.encryptedConsentId); // Print the parameter to the console.
+    });
+
+    // dummy accounts
     this.getAccounts();
+  }
+
+  onConsentConfirm() {
+
+  }
+
+  private mockLogin() {
+
   }
 
   private getAccounts() {
@@ -55,10 +75,6 @@ export class TanSelectionComponent implements OnInit {
 
     this.accounts.push(account1);
     this.accounts.push(account2);
-  }
-
-  private getConsent() {
-
   }
 
 }
