@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {RoutingPath} from './common/models/routing-path.model';
 import {LoginComponent} from './login/login.component';
 import {ResultPageComponent} from './result-page/result-page.component';
+import {ScaSelectionComponent} from "./ais/consent/sca-selection/sca-selection.component";
 
 export const routes: Routes = [
     {
@@ -18,6 +19,10 @@ export const routes: Routes = [
     {
         path: RoutingPath.RESULT,
         component: ResultPageComponent,
+    },
+    {
+      path: RoutingPath.SELECT_SCA,
+      component: ScaSelectionComponent,
     }
 ];
 

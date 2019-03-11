@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TanSelectionComponent } from './tan-selection.component';
+import { ScaSelectionComponent } from './sca-selection.component';
 
 describe('TanSelectionComponent', () => {
-  let component: TanSelectionComponent;
-  let fixture: ComponentFixture<TanSelectionComponent>;
+  let component: ScaSelectionComponent;
+  let fixture: ComponentFixture<ScaSelectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TanSelectionComponent ]
+      declarations: [ ScaSelectionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TanSelectionComponent);
+    fixture = TestBed.createComponent(ScaSelectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

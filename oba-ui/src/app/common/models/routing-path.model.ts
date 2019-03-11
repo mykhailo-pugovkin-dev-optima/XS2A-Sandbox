@@ -1,4 +1,5 @@
 export  enum RoutingPath {
     LOGIN = 'login',
-    RESULT = 'result'
+    RESULT = 'result',
+    SELECT_SCA = 'select-sca'
 }
