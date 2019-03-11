@@ -1,5 +1,44 @@
 <div class="container">
-  <h3 class="sca-method">SCA Method</h3>
+  <h3 class="sca-select-title">SCA Method</h3>
 
-  <p>Please choose an SCA method to go on.</p>
+  <p class="sca-select-hint">Please choose an SCA method to go on.</p>
+
+  <div class="sca-methods">
+    <div class="form-check">
+      <input class="form-check-input"
+             type="radio"
+             name="exampleRadios"
+             id="scaEmail"
+             value="option1" checked>
+      <label class="form-check-label" for="scaEmail">
+        Email
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input"
+             type="radio"
+             name="exampleRadios"
+             id="scaPhoto"
+             value="PHOTO" disabled>
+      <label class="form-check-label" for="scaPhoto">
+        Photo
+      </label>
+    </div>
+    <div class="form-check disabled">
+      <input class="form-check-input"
+             type="radio"
+             name="exampleRadios"
+             id="scaPhone"
+             value="PHONE" disabled>
+      <label class="form-check-label" for="scaPhone">
+        SMS
+      </label>
+    </div>
+  </div>
+
+  <div class="sca-actions">
+    <button class="btn d-inline sca-cancel">Cancel</button>
+    <button class="btn d-inline sca-next">Next</button>
+  </div>
+
 </div>
