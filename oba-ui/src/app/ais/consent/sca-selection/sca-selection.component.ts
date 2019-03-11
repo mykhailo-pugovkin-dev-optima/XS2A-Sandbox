@@ -12,4 +12,12 @@ export class ScaSelectionComponent implements OnInit {
   ngOnInit() {
   }
 
+  onCancel() {
+
+  }
+
+  onNext() {
+
+  }
+
 }

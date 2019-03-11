@@ -1,44 +1,47 @@
-<div class="container">
-  <h3 class="sca-select-title">SCA Method</h3>
+<div class="sca-select">
 
-  <p class="sca-select-hint">Please choose an SCA method to go on.</p>
+  <h3 class="sca-select-title mb-4 text-left">SCA Method</h3>
 
-  <div class="sca-methods">
-    <div class="form-check">
-      <input class="form-check-input"
-             type="radio"
-             name="exampleRadios"
-             id="scaEmail"
-             value="option1" checked>
-      <label class="form-check-label" for="scaEmail">
-        Email
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input"
-             type="radio"
-             name="exampleRadios"
-             id="scaPhoto"
-             value="PHOTO" disabled>
-      <label class="form-check-label" for="scaPhoto">
-        Photo
-      </label>
-    </div>
-    <div class="form-check disabled">
-      <input class="form-check-input"
-             type="radio"
-             name="exampleRadios"
-             id="scaPhone"
-             value="PHONE" disabled>
-      <label class="form-check-label" for="scaPhone">
-        SMS
-      </label>
-    </div>
-  </div>
+  <p class="sca-select-hint mb-5 text-left">Please choose an SCA method to go on.</p>
 
-  <div class="sca-actions">
-    <button class="btn d-inline sca-cancel">Cancel</button>
-    <button class="btn d-inline sca-next">Next</button>
-  </div>
+  <form class="sca-select-form my-2">
+    <div class="sca-methods form-group my-4">
+      <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="scaMethod"
+               id="scaEmail"
+               value="option1" checked>
+        <label class="form-check-label ml-4" for="scaEmail">
+          Email
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="scaMethod"
+               id="scaPhoto"
+               value="PHOTO" disabled>
+        <label class="form-check-label ml-4" for="scaPhoto">
+          Photo
+        </label>
+      </div>
+      <div class="form-check disabled">
+        <input class="form-check-input"
+               type="radio"
+               name="scaMethod"
+               id="scaPhone"
+               value="PHONE" disabled>
+        <label class="form-check-label ml-4" for="scaPhone">
+          SMS
+        </label>
+      </div>
+    </div>
+
+    <div class="sca-actions form-group d-flex flex-row justify-content-lg-between">
+      <button class="btn mr-sm-2 mr-md-3 sca-btn sca-btn-cancel">Cancel</button>
+      <button class="btn sca-btn sca-btn-next">Next</button>
+    </div>
+  </form>
 
 </div>
