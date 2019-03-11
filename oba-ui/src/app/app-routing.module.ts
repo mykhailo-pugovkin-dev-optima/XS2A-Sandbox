@@ -5,6 +5,7 @@ import {RoutingPath} from './common/models/routing-path.model';
 import {LoginComponent} from './login/login.component';
 import {ResultPageComponent} from './result-page/result-page.component';
 import {ScaSelectionComponent} from "./ais/consent/sca-selection/sca-selection.component";
+import {TanConfirmationComponent} from "./ais/consent/tan-confirmation/tan-confirmation.component";
 
 export const routes: Routes = [
     {
@@ -23,6 +24,10 @@ export const routes: Routes = [
     {
       path: RoutingPath.SELECT_SCA,
       component: ScaSelectionComponent,
+    },
+    {
+      path: RoutingPath.CONFIRM_TAN,
+      component: TanConfirmationComponent,
     }
 ];
 
