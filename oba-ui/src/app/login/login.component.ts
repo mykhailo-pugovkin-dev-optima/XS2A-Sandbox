@@ -6,6 +6,7 @@ import {RoutingPath} from "../common/models/routing-path.model";
 import {AisService} from "../common/services/ais.service";
 import {URL_PARAMS_PROVIDER} from "../common/constants/constants";
 import {HttpHeaders} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
     selector: 'ais-login',
@@ -18,17 +19,14 @@ export class LoginComponent implements OnInit {
     error: string;
     authorisationId: string;
     encryptedConsentId: string;
-    Cookie = 'eyJraWQiOiJNQmxEd3d1NlJ4RXJ1dGhmc0QycnBZIiwiYWxnIjoiSFMyNTYifQ.eyJlbmMtY29uc2VudC1pZCI6IlA1a1p1bTZpMFZYT3E5bnNFNmcxaVNXT3RPTUxnd2c1OUtIdThVRm9ZcUJTYmRtMnR3UUhfTEJURzk0bFRJNnVTZmdpcWxER0VmWWI3aFhPeXpfUDlnPT1fPV9iUzZwNlh2VFdJIiwiY29uc2VudC10eXBlIjoiQUlTIiwicmVkaXJlY3QtaWQiOiI1ODc0YTQ4NC01NWUwLTRmNTQtYTYzYS0zN2JkNjg3YjAzMDEiLCJleHAiOjE1NTIzOTE2MDgsImlhdCI6MTU1MjM5MTMwOCwianRpIjoiX0pvX3VGaHFRdW92M0doWEZBaHV2dyJ9.4aJTNRHGg4gZGFcAlIVo-MizWwmotSik5Opf-a3I84w';
+    consentCookie: string;
     header = new HttpHeaders();
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private route: ActivatedRoute,
-                private psuAisService: AisService,
-                @Inject(URL_PARAMS_PROVIDER) params) {
-        this.encryptedConsentId = params['encryptedConsentId'];
-        this.authorisationId = params['authorisationId'];
-        console.log('params: ', params);
+                private cookieService: CookieService,
+                private psuAisService: AisService) {
     }
 
     ngOnInit() {
@@ -36,7 +34,10 @@ export class LoginComponent implements OnInit {
             login: ['', Validators.required],
             pin: ['', Validators.required]
         });
-        this.header.append("Cookie", this.Cookie);
+        this.consentCookie = this.cookieService.get('CONSENT');
+        const IsCookieExists: boolean = this.cookieService.check('bla');
+        console.log(IsCookieExists);
+        // this.header.append("Cookie", this.consentCookie);
     }
 
     onSubmit() {
