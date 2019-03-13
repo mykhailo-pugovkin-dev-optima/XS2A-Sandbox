@@ -164,12 +164,15 @@ public class ResponseUtils {
 	}
 
 	private String cookie(String cookieString, String name) {
-		List<HttpCookie> cookies = HttpCookie.parse(cookieString);		
-		for (HttpCookie httpCookie : cookies) {
-			if(StringUtils.equalsIgnoreCase(httpCookie.getName(), name)){
-				return httpCookie.getValue();
-			}
-		}
+    String[] rawCookies = cookieString.split(";");
+    for (String rawCookie : rawCookies) {
+      List<HttpCookie> cookies = HttpCookie.parse(rawCookie);
+      for (HttpCookie httpCookie : cookies) {
+        if (StringUtils.equalsIgnoreCase(httpCookie.getName(), name)) {
+          return httpCookie.getValue();
+        }
+      }
+    }
 		return null;
 	}
 }
