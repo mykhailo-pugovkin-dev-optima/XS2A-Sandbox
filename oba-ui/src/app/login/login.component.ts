@@ -7,6 +7,7 @@ import {AisService} from "../common/services/ais.service";
 import {URL_PARAMS_PROVIDER} from "../common/constants/constants";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import {__await} from "tslib";
 
 @Component({
     selector: 'ais-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     error: string;
+    redirectId: string;
     authorisationId: string;
     encryptedConsentId: string;
     consentCookie: string;
@@ -26,36 +28,56 @@ export class LoginComponent implements OnInit {
                 private router: Router,
                 private route: ActivatedRoute,
                 private cookieService: CookieService,
-                private psuAisService: AisService) {
+                private aisService: AisService) {
     }
 
     ngOnInit() {
+        this.getParams();
         this.loginForm = this.formBuilder.group({
             login: ['', Validators.required],
             pin: ['', Validators.required]
         });
+
+        this.route.queryParamMap.subscribe(queryParams => {
+          this.encryptedConsentId = queryParams.get("encryptedConsentId")
+          this.redirectId = queryParams.get("redirectId")
+        });
+
+        // console.log(this.encryptedConsentId);
         this.consentCookie = this.cookieService.get('CONSENT');
-        const IsCookieExists: boolean = this.cookieService.check('bla');
-        console.log(IsCookieExists);
+        // const IsCookieExists: boolean = this.cookieService.check('bla');
+        console.log(this.encryptedConsentId);
         // this.header.append("Cookie", this.consentCookie);
+
     }
 
     onSubmit() {
         this.loading = true;
-        this.psuAisService.loginUsingAuthorizationId({
-            ...this.loginForm.value,
-            encryptedConsentId: this.encryptedConsentId,
-            authorisationId: this.authorisationId,
-            headers: this.header
-        })
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([`./${RoutingPath.BANK_OFFERED}`]);
-                },
-                error => {
-                    this.error = error;
-                    this.loading = false;
-                });
+        this.aisService.aisAuth({encryptedConsentId: this.encryptedConsentId, redirectId: this.redirectId})
+          .subscribe(result => {
+          console.log(result);
+        });
+        // this.psuAisService.loginUsingAuthorizationId({
+        //     ...this.loginForm.value,
+        //     encryptedConsentId: this.encryptedConsentId,
+        //     authorisationId: this.authorisationId,
+        //     headers: this.header
+        // })
+        //     .pipe(first())
+        //     .subscribe(
+        //         data => {
+        //             this.router.navigate([`./${RoutingPath.BANK_OFFERED}`]);
+        //         },
+        //         error => {
+        //             this.error = error;
+        //             this.loading = false;
+        //         });
+    }
+
+    private getParams () {
+      this.route.queryParamMap.subscribe(queryParams => {
+        this.encryptedConsentId = queryParams.get("encryptedConsentId")
+        this.redirectId = queryParams.get("redirectId")
+      });
     }
 }
