@@ -33,6 +33,8 @@ import de.adorsys.ledgers.middleware.client.rest.AccountRestClient;
 @ComponentScan( basePackages="de.adorsys.ledgers.oba")
 public class LedgersXs2aObaApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(LedgersXs2aObaApplication.class).run(args);
+      new SpringApplicationBuilder(LedgersXs2aObaApplication.class).run(args);
     }
+
+
 }
