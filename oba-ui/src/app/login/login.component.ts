@@ -1,13 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {first} from "rxjs/operators";
-import {RoutingPath} from "../common/models/routing-path.model";
 import {AisService} from "../common/services/ais.service";
-import {URL_PARAMS_PROVIDER} from "../common/constants/constants";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
-import {__await} from "tslib";
 
 @Component({
     selector: 'ais-login',
@@ -33,30 +29,26 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.getParams();
+
         this.loginForm = this.formBuilder.group({
             login: ['', Validators.required],
             pin: ['', Validators.required]
         });
-
-        this.route.queryParamMap.subscribe(queryParams => {
-          this.encryptedConsentId = queryParams.get("encryptedConsentId")
-          this.redirectId = queryParams.get("redirectId")
-        });
-
-        // console.log(this.encryptedConsentId);
-        this.consentCookie = this.cookieService.get('CONSENT');
-        // const IsCookieExists: boolean = this.cookieService.check('bla');
-        console.log(this.encryptedConsentId);
-        // this.header.append("Cookie", this.consentCookie);
-
     }
 
     onSubmit() {
         this.loading = true;
         this.aisService.aisAuth({encryptedConsentId: this.encryptedConsentId, redirectId: this.redirectId})
           .subscribe(result => {
-          console.log(result);
-        });
+            console.log(result);
+            this.consentCookie = this.cookieService.get('CONSENT');
+            console.log(this.consentCookie);
+
+            this.aisService.aisLogin({login: "anton.brueckner", pin: "12345"}, this.consentCookie, this.encryptedConsentId, this.redirectId)
+              .subscribe(login => {
+                console.log(login);
+              });
+          });
         // this.psuAisService.loginUsingAuthorizationId({
         //     ...this.loginForm.value,
         //     encryptedConsentId: this.encryptedConsentId,

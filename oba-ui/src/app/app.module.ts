@@ -7,11 +7,12 @@ import {LoginComponent} from './login/login.component';
 import {ResultPageComponent} from './result-page/result-page.component';
 import {TanConfirmationComponent} from './ais/consent/tan-confirmation/tan-confirmation.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ScaSelectionComponent} from './ais/consent/sca-selection/sca-selection.component';
 import {BankOfferedComponent} from './ais/consent/bank-offered/bank-offered.component';
 import {AccountDetailsComponent} from './account-details/account-details.component';
 import { CookieService } from 'ngx-cookie-service';
+import {AuthInterceptor} from "./common/interceptors/AuthInterceptor";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,14 @@ import { CookieService } from 'ngx-cookie-service';
         FormsModule,
         HttpClientModule
     ],
-    providers: [CookieService],
+    providers: [
+      CookieService,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor ,
+        multi: true
+      }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
