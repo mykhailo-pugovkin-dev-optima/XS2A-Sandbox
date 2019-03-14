@@ -60,10 +60,9 @@ public class ResponseUtils {
 			validity = ((Long) TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS)).intValue();
 			// Set Cookie. Access Token
 			Cookie accessTokenCookie = new Cookie(ACCESS_TOKEN_COOKIE_NAME, accessTokenString);
-			accessTokenCookie.setHttpOnly(true);
+			accessTokenCookie.setHttpOnly(false);
 			accessTokenCookie.setSecure(https_enabled);
 			accessTokenCookie.setMaxAge(validity);
-			accessTokenCookie.setDomain("localhost");
 			accessTokenCookie.setPath("/");
 			response.addCookie(accessTokenCookie);
 		} else {
@@ -73,10 +72,9 @@ public class ResponseUtils {
 		if (consentReference!=null && StringUtils.isNoneBlank(consentReference.getCookieString())) {
 			// Set cookie consent
 			Cookie consentCookie = new Cookie(CONSENT_COOKIE_NAME, consentReference.getCookieString());
-			consentCookie.setHttpOnly(true);
+			consentCookie.setHttpOnly(false);
 			consentCookie.setSecure(https_enabled);
 			consentCookie.setMaxAge(validity);
-			consentCookie.setDomain("localhost");
 			consentCookie.setPath("/");
 			response.addCookie(consentCookie);
 		}
@@ -89,7 +87,7 @@ public class ResponseUtils {
 
 	private void removeCookie(HttpServletResponse response, String cookieName) {
 		Cookie cookie = new Cookie(cookieName, "");
-		cookie.setHttpOnly(true);
+		cookie.setHttpOnly(false);
 		cookie.setSecure(https_enabled);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
