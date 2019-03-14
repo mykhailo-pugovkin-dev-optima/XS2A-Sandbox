@@ -14,10 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import de.adorsys.ledgers.middleware.api.domain.sca.OpTypeTO;
 import de.adorsys.ledgers.middleware.api.domain.sca.SCAConsentResponseTO;
@@ -40,7 +37,6 @@ import de.adorsys.ledgers.oba.rest.api.domain.CreatePiisConsentRequestTO;
 import de.adorsys.ledgers.oba.rest.api.domain.PIISConsentCreateResponse;
 import de.adorsys.ledgers.oba.rest.api.domain.ValidationCode;
 import de.adorsys.ledgers.oba.rest.api.exception.ConsentAuthorizeException;
-import de.adorsys.ledgers.oba.rest.api.resource.AISApi;
 import de.adorsys.ledgers.oba.rest.server.mapper.AisConsentMapper;
 import de.adorsys.ledgers.oba.rest.server.mapper.CreatePiisConsentRequestMapper;
 import de.adorsys.psd2.consent.api.CmsAspspConsentDataBase64;
@@ -52,7 +48,10 @@ import io.swagger.annotations.ApiOperation;
 @RestController(AISController.BASE_PATH)
 @RequestMapping(AISController.BASE_PATH)
 @Api(value = AISController.BASE_PATH, tags = "PSU AIS", description = "Provides access to online banking account functionality")
-public class AISController extends AbstractXISController implements AISApi {
+public class AISController extends AbstractXISController {
+
+  static final String BASE_PATH = "/ais";
+
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
@@ -72,22 +71,26 @@ public class AISController extends AbstractXISController implements AISApi {
 	@Autowired
 	private CreatePiisConsentRequestMapper createPiisConsentRequestMapper;
 
-	@Override
 	@ApiOperation(value = "Entry point for authenticating ais consent requests.")
+  @GetMapping(path="/auth", params= {"redirectId","encryptedConsentId"})
 	public ResponseEntity<AuthorizeResponse> aisAuth(@RequestParam(name = "redirectId") String redirectId,
 			@RequestParam(name = "encryptedConsentId") String encryptedConsentId) {
 		return auth(redirectId, ConsentType.AIS, encryptedConsentId, request, response);
 	}
 
-	@Override
 	public String getBasePath() {
 		return BASE_PATH;
 	}
 
-	@Override
 	@SuppressWarnings("PMD.CyclomaticComplexity")
-	public ResponseEntity<ConsentAuthorizeResponse> login(String encryptedConsentId, String authorisationId,
-			String login, String pin, String consentCookieString) {
+  @ApiOperation(value = "Identifies the user by login an pin. Returns sca methods data")
+  @PostMapping(path="/{encryptedConsentId}/authorisation/{authorisationId}/login")
+	public ResponseEntity<ConsentAuthorizeResponse> login(
+    @PathVariable("encryptedConsentId") String encryptedConsentId,
+    @PathVariable("authorisationId") String authorisationId,
+    @RequestParam("login") String login,
+    @RequestParam("pin") String pin,
+    @CookieValue(value = "CONSENT", defaultValue = "0") String consentCookieString) {
 
 		ConsentWorkflow workflow;
 		try {
@@ -147,7 +150,6 @@ public class AISController extends AbstractXISController implements AISApi {
 		}
 	}
 	
-	@Override
 	public ResponseEntity<ConsentAuthorizeResponse> authrizedConsent(
 			String encryptedConsentId,
 			String authorisationId,
@@ -174,7 +176,6 @@ public class AISController extends AbstractXISController implements AISApi {
 		}
 	}
 	
-	@Override
 	public ResponseEntity<ConsentAuthorizeResponse> selectMethod(
 			String encryptedConsentId, String authorisationId,
 			String scaMethodId, String consentAndaccessTokenCookieString) {
@@ -195,7 +196,6 @@ public class AISController extends AbstractXISController implements AISApi {
 		}			
 	}
 	
-	@Override
 	public ResponseEntity<PIISConsentCreateResponse> grantPiisConsent(@RequestHeader("Cookie") String consentAndaccessTokenCookieString,  CreatePiisConsentRequestTO piisConsentRequestTO) {
 		
 		String psuId = AuthUtils.psuId(auth);

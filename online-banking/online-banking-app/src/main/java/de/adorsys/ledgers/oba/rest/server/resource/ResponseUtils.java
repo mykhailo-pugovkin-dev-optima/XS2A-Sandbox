@@ -1,6 +1,7 @@
 package de.adorsys.ledgers.oba.rest.server.resource;
 
 import java.net.HttpCookie;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -154,13 +155,16 @@ public class ResponseUtils {
 	}
 	
 	public String consentCookie(String cookieString) {
-		return cookie(cookieString, CONSENT_COOKIE_NAME);
+	  return cookieString;
+//		return cookie(cookieString, CONSENT_COOKIE_NAME);
 	}
 
 	public String accessTokenCookie(String cookieString) {
-		return cookie(cookieString, ACCESS_TOKEN_COOKIE_NAME);
+    return cookieString;
+//		return cookie(cookieString, ACCESS_TOKEN_COOKIE_NAME);
 	}
 
+  //	  TODO: Method is redundant
 	private String cookie(String cookieString, String name) {
     String[] rawCookies = cookieString.split(";");
     for (String rawCookie : rawCookies) {
@@ -173,4 +177,5 @@ public class ResponseUtils {
     }
 		return null;
 	}
+
 }
