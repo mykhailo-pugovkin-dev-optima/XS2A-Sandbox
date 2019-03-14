@@ -6,9 +6,9 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {ResultPageComponent} from './result-page/result-page.component';
 import {TanSelectionComponent} from './ais/consent/tan-selection/tan-selection.component';
-import {TanConfirmationComponent} from './ais/consent/tan-confirmation/tan-confirmation.component';
 import {BankOfferedComponent} from './ais/consent/bank-offered/bank-offered.component';
-import { AccountDetailsComponent } from './account-details/account-details.component';
+import {AccountDetailsComponent } from './account-details/account-details.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
     declarations: [
@@ -16,16 +16,19 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
         LoginComponent,
         ResultPageComponent,
         TanSelectionComponent,
-        TanConfirmationComponent,
         BankOfferedComponent,
         AccountDetailsComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        ModalModule.forRoot()
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+      ResultPageComponent
+    ]
 })
 export class AppModule {
 }

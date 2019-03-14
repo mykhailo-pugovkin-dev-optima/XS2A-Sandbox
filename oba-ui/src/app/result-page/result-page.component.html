@@ -1,3 +1,25 @@
-<p>
-  result-page works!
-</p>
+<div class="modal-content">
+  <div class="modal-header">
+    <button (click)="close()" class="close pull-right" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="!result">
+      <h5 class="card-title  text-black text-left">Sorry</h5>
+      <p class="card-text text-left">
+        <small> The consent to access to your account was not given</small>
+      </p>
+      <button type="button" class="btn btn-outline-primary btn-block " (click)="decline()">OK</button>
+    </div>
+    <div *ngIf="result">
+      <h5 class="card-title  text-black text-left">Thank you</h5>
+      <p class="card-text text-left">
+        <small>The consent to access to your account was successfully provided</small>
+      </p>
+      <button type="button" class="btn btn-outline-primary btn-block " (click)="nextPage()">OK</button>
+    </div>
+  </div>
+</div>
+
+
