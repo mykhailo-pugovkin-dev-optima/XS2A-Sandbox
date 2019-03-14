@@ -6,20 +6,21 @@
   </div>
   <div class="modal-body">
     <div *ngIf="!result">
-      <h5 class="card-title  text-black text-left">Sorry</h5>
+      <h5 class="card-title text-dark">Sorry</h5>
       <p class="card-text text-left">
         <small> The consent to access to your account was not given</small>
       </p>
-      <button type="button" class="btn btn-outline-primary btn-block " (click)="decline()">OK</button>
+      <button type="button" class="btn  btn-outline-primary" (click)="decline()">OK</button>
     </div>
     <div *ngIf="result">
-      <h5 class="card-title  text-black text-left">Thank you</h5>
-      <p class="card-text text-left">
+      <h5 class="card-title text-dark">Thank you</h5>
+      <p class="card-text text-muted">
         <small>The consent to access to your account was successfully provided</small>
       </p>
-      <button type="button" class="btn btn-outline-primary btn-block " (click)="nextPage()">OK</button>
+      <button type="button" class="btn btn-outline-primary" (click)="nextPage()">OK</button>
     </div>
   </div>
 </div>
+
 
 

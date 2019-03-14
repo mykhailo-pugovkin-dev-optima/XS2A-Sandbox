@@ -49,12 +49,17 @@
         }
 
         .btn-outline-secondary {
-            color: $COLOR_DARK_GREY;
-            background-color: #fff;
-            border: 1px solid $COLOR_DARK_GREY;
-            margin-right: 0;
+          margin-left: 21px;
+          margin-right: 400px;
+          size: 21px;
+          width: 192px;
+          border-radius: 3px;
+          font-weight: bold;
+          color: #FFFFFF;
+          background: linear-gradient(270deg, #0DB0E2 0%, #10317D 100%) !important;
 
-            &:hover {
+
+          &:hover {
                 background-color: $COLOR_GREY;
                 color: $COLOR_BLACK;
             }

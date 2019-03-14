@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {RoutingPath} from './common/models/routing-path.model';
 import {LoginComponent} from './login/login.component';
-import {ResultPageComponent} from './result-page/result-page.component';
+import {TanSelectionComponent} from './ais/consent/tan-selection/tan-selection.component';
 
 export const routes: Routes = [
     {
@@ -16,8 +16,8 @@ export const routes: Routes = [
         component: LoginComponent,
     },
     {
-        path: RoutingPath.RESULT,
-        component: ResultPageComponent,
+      path: RoutingPath.TANSELECTION,
+      component: TanSelectionComponent,
     }
 ];
 

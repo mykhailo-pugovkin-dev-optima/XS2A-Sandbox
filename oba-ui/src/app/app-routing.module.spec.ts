@@ -11,6 +11,6 @@ describe('Routes', () => {
     });
 
     it('Should contain the route for /tan-procedure', () => {
-        expect(routes).toContain({path: RoutingPath.RESULT, component: ResultPageComponent});
+        expect(routes).toContain({path: RoutingPath.TANSELECTION, component: ResultPageComponent});
     });
 });
