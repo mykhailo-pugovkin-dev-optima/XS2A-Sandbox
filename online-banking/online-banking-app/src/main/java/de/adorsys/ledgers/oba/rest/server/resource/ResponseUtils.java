@@ -1,9 +1,6 @@
 package de.adorsys.ledgers.oba.rest.server.resource;
 
-import java.net.HttpCookie;
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.Cookie;
@@ -164,18 +161,18 @@ public class ResponseUtils {
 //		return cookie(cookieString, ACCESS_TOKEN_COOKIE_NAME);
 	}
 
-  //	  TODO: Method is redundant
-	private String cookie(String cookieString, String name) {
-    String[] rawCookies = cookieString.split(";");
-    for (String rawCookie : rawCookies) {
-      List<HttpCookie> cookies = HttpCookie.parse(rawCookie);
-      for (HttpCookie httpCookie : cookies) {
-        if (StringUtils.equalsIgnoreCase(httpCookie.getName(), name)) {
-          return httpCookie.getValue();
-        }
-      }
-    }
-		return null;
-	}
+//  	  TODO: Method is redundant
+//	private String cookie(String cookieString, String name) {
+//    String[] rawCookies = cookieString.split(";");
+//    for (String rawCookie : rawCookies) {
+//      List<HttpCookie> cookies = HttpCookie.parse(rawCookie);
+//      for (HttpCookie httpCookie : cookies) {
+//        if (StringUtils.equalsIgnoreCase(httpCookie.getName(), name)) {
+//          return httpCookie.getValue();
+//        }
+//      }
+//    }
+//		return null;
+//	}
 
 }

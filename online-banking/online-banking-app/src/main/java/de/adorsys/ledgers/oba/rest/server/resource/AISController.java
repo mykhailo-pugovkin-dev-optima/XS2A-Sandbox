@@ -78,6 +78,7 @@ public class AISController extends AbstractXISController {
 		return auth(redirectId, ConsentType.AIS, encryptedConsentId, request, response);
 	}
 
+	@Override
 	public String getBasePath() {
 		return BASE_PATH;
 	}
