@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class AuthInterceptor implements AuthInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
 
   constructor() {}
 
