@@ -44,11 +44,16 @@ export class LoginComponent implements OnInit {
             this.consentCookie = this.cookieService.get('CONSENT');
             console.log(this.consentCookie);
 
-            this.aisService.aisLogin({login: "anton.brueckner", pin: "12345"}, this.consentCookie, this.encryptedConsentId, this.redirectId)
-              .subscribe(login => {
+            this.aisService.loginUsingAuthorizationId({
+              login: "anton.brueckner",
+              pin: "12345",
+              encryptedConsentId: this.encryptedConsentId,
+              authorisationId: this.redirectId
+            }).subscribe(login => {
                 console.log(login);
-              });
+            });
           });
+
         // this.psuAisService.loginUsingAuthorizationId({
         //     ...this.loginForm.value,
         //     encryptedConsentId: this.encryptedConsentId,

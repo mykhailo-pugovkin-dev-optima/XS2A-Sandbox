@@ -15,10 +15,10 @@ export class AisService {
 
   constructor(private aisService: PSUAISService, private http: HttpClient) {
   }
-  //  public loginUsingAuthorizationId(params: LoginUsingPOSTParams): Observable<ConsentAuthorizeResponse> {
-  //     console.log('LoginUsingPOSTParams: ', params);
-  //     return this.aisService.loginUsingPOST(params);
-  //  }
+   public loginUsingAuthorizationId(params: LoginUsingPOSTParams): Observable<ConsentAuthorizeResponse> {
+      console.log('LoginUsingPOSTParams: ', params);
+      return this.aisService.loginUsingPOST(params);
+   }
   //
   // public aisAuth(params: AisAuthUsingGETParams): Observable<AuthorizeResponse> {
   //   return this.aisService.aisAuthUsingGET(params);

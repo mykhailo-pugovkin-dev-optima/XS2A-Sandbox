@@ -21,7 +21,7 @@ class PSUPISService extends __BaseService {
   static readonly authrizedPaymentUsingPOSTPath = '/pis/{encryptedPaymentId}/authorisation/{authorisationId}/authCode';
   static readonly initiatePaymentUsingPOSTPath = '/pis/{encryptedPaymentId}/authorisation/{authorisationId}/initiate';
   static readonly loginUsingPOST1Path = '/pis/{encryptedPaymentId}/authorisation/{authorisationId}/login';
-  static readonly selectMethodUsingPOST1Path = '/pis/{encryptedPaymentId}/authorisation/{authorisationId}/methods/{scaMethodId}';
+  static readonly selectMethodUsingPOSTPath = '/pis/{encryptedPaymentId}/authorisation/{authorisationId}/methods/{scaMethodId}';
 
   constructor(
     config: __Configuration,
@@ -249,7 +249,7 @@ class PSUPISService extends __BaseService {
   }
 
   /**
-   * @param params The `PSUPISService.SelectMethodUsingPOST1Params` containing the following parameters:
+   * @param params The `PSUPISService.SelectMethodUsingPOSTParams` containing the following parameters:
    *
    * - `scaMethodId`: scaMethodId
    *
@@ -261,7 +261,7 @@ class PSUPISService extends __BaseService {
    *
    * @return OK
    */
-  selectMethodUsingPOST1Response(params: PSUPISService.SelectMethodUsingPOST1Params): __Observable<__StrictHttpResponse<PaymentAuthorizeResponse>> {
+  selectMethodUsingPOSTResponse(params: PSUPISService.SelectMethodUsingPOSTParams): __Observable<__StrictHttpResponse<PaymentAuthorizeResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -287,7 +287,7 @@ class PSUPISService extends __BaseService {
     );
   }
   /**
-   * @param params The `PSUPISService.SelectMethodUsingPOST1Params` containing the following parameters:
+   * @param params The `PSUPISService.SelectMethodUsingPOSTParams` containing the following parameters:
    *
    * - `scaMethodId`: scaMethodId
    *
@@ -299,8 +299,8 @@ class PSUPISService extends __BaseService {
    *
    * @return OK
    */
-  selectMethodUsingPOST1(params: PSUPISService.SelectMethodUsingPOST1Params): __Observable<PaymentAuthorizeResponse> {
-    return this.selectMethodUsingPOST1Response(params).pipe(
+  selectMethodUsingPOST(params: PSUPISService.SelectMethodUsingPOSTParams): __Observable<PaymentAuthorizeResponse> {
+    return this.selectMethodUsingPOSTResponse(params).pipe(
       __map(_r => _r.body as PaymentAuthorizeResponse)
     );
   }
@@ -403,9 +403,9 @@ module PSUPISService {
   }
 
   /**
-   * Parameters for selectMethodUsingPOST1
+   * Parameters for selectMethodUsingPOST
    */
-  export interface SelectMethodUsingPOST1Params {
+  export interface SelectMethodUsingPOSTParams {
 
     /**
      * scaMethodId

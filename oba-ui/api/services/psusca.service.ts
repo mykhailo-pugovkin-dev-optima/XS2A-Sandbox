@@ -18,7 +18,7 @@ import { AuthorizeResponse } from '../models/authorize-response';
 class PSUSCAService extends __BaseService {
   static readonly loginUsingPOST2Path = '/sca/login';
   static readonly validateAuthCodeUsingPOSTPath = '/sca/{scaId}/authorisation/{authorisationId}/authCode';
-  static readonly selectMethodUsingPOST2Path = '/sca/{scaId}/authorisation/{authorisationId}/methods/{methodId}';
+  static readonly selectMethodUsingPOST1Path = '/sca/{scaId}/authorisation/{authorisationId}/methods/{methodId}';
 
   constructor(
     config: __Configuration,
@@ -132,7 +132,7 @@ class PSUSCAService extends __BaseService {
   }
 
   /**
-   * @param params The `PSUSCAService.SelectMethodUsingPOST2Params` containing the following parameters:
+   * @param params The `PSUSCAService.SelectMethodUsingPOST1Params` containing the following parameters:
    *
    * - `scaId`: scaId
    *
@@ -144,7 +144,7 @@ class PSUSCAService extends __BaseService {
    *
    * @return OK
    */
-  selectMethodUsingPOST2Response(params: PSUSCAService.SelectMethodUsingPOST2Params): __Observable<__StrictHttpResponse<AuthorizeResponse>> {
+  selectMethodUsingPOST1Response(params: PSUSCAService.SelectMethodUsingPOST1Params): __Observable<__StrictHttpResponse<AuthorizeResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -170,7 +170,7 @@ class PSUSCAService extends __BaseService {
     );
   }
   /**
-   * @param params The `PSUSCAService.SelectMethodUsingPOST2Params` containing the following parameters:
+   * @param params The `PSUSCAService.SelectMethodUsingPOST1Params` containing the following parameters:
    *
    * - `scaId`: scaId
    *
@@ -182,8 +182,8 @@ class PSUSCAService extends __BaseService {
    *
    * @return OK
    */
-  selectMethodUsingPOST2(params: PSUSCAService.SelectMethodUsingPOST2Params): __Observable<AuthorizeResponse> {
-    return this.selectMethodUsingPOST2Response(params).pipe(
+  selectMethodUsingPOST1(params: PSUSCAService.SelectMethodUsingPOST1Params): __Observable<AuthorizeResponse> {
+    return this.selectMethodUsingPOST1Response(params).pipe(
       __map(_r => _r.body as AuthorizeResponse)
     );
   }
@@ -234,9 +234,9 @@ module PSUSCAService {
   }
 
   /**
-   * Parameters for selectMethodUsingPOST2
+   * Parameters for selectMethodUsingPOST1
    */
-  export interface SelectMethodUsingPOST2Params {
+  export interface SelectMethodUsingPOST1Params {
 
     /**
      * scaId
