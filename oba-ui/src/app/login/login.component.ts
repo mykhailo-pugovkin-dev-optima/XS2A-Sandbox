@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
 
         this.loginForm = this.formBuilder.group({
             login: ['', Validators.required],
-            pin: ['', Validators.required]
+            pin: ['', Validators.required],
+            authorisationId: [''],
+            encryptedConsentId: [''],
         });
     }
 
@@ -42,15 +44,17 @@ export class LoginComponent implements OnInit {
           .subscribe(result => {
             console.log(result);
             this.consentCookie = this.cookieService.get('CONSENT');
-            console.log(this.consentCookie);
 
-            this.aisService.loginUsingAuthorizationId({
-              login: "anton.brueckner",
-              pin: "12345",
+            this.loginForm.patchValue({
               encryptedConsentId: this.encryptedConsentId,
               authorisationId: this.redirectId
-            }).subscribe(login => {
+            });
+
+            console.log(this.loginForm.value);
+
+            this.aisService.loginUsingAuthorizationId(this.loginForm.value).subscribe(login => {
                 console.log(login);
+                // this.router.navigate('');
             });
           });
 
