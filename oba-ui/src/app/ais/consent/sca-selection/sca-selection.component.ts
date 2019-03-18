@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from "../../../common/services/data.service";
 
 @Component({
   selector: 'app-tan-selection',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScaSelectionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.dataService.currentScaMethods.subscribe(result => {
+      console.log(result)
+    });
   }
 
   onCancel() {

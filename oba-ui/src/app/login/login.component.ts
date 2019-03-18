@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AisService} from "../common/services/ais.service";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import {RoutingPath} from "../common/models/routing-path.model";
+import {DataService} from "../common/services/data.service";
 
 @Component({
     selector: 'ais-login',
@@ -24,7 +26,8 @@ export class LoginComponent implements OnInit {
                 private router: Router,
                 private route: ActivatedRoute,
                 private cookieService: CookieService,
-                private aisService: AisService) {
+                private aisService: AisService,
+                private dataService: DataService) {
     }
 
     ngOnInit() {
@@ -54,7 +57,7 @@ export class LoginComponent implements OnInit {
 
             this.aisService.loginUsingAuthorizationId(this.loginForm.value).subscribe(login => {
                 console.log(login);
-                // this.router.navigate('');
+                this.router.navigate([RoutingPath.SELECT_SCA]);
             });
           });
 
