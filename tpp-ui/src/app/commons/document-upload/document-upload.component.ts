@@ -17,28 +17,20 @@ export class DocumentUploadComponent implements OnInit {
     @Input() options: UploadOptions;
 
     public hasBaseDropZoneOver = true;
-    public uploadFormGroup: FormGroup;
 
-    constructor(private uploadService: UploadService,
-                private formBuilder: FormBuilder) {
-        this.uploadFormGroup = this.formBuilder.group({
-            'login': ['', Validators.required],
-            'password': ['', Validators.required],
-            'forceUploap': ['', Validators.required]
-        });
-    }
+    constructor(private uploadService: UploadService) { }
 
     public get acceptedMimes(): string {
-        return (this.options && this.options.allowedMimeType)
-            ? this.options.allowedMimeType.join(',')
+        return (this.options && this.options.allowedFileType)
+            ? this.options.allowedFileType.join(',')
             : null;
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.uploader = this.uploadService.createInstanceFileUploader(this.options);
 
         /* Ensure again that the number of up-to-load file is always one and get the image path for preview */
-        this.uploader.onAfterAddingFile = (item) => this.onAfterAddingFile(item);
+        this.uploader.onAfterAddingFile = (item) => console.log(item); // this.onAfterAddingFile(item);
 
         this.uploader.onCompleteItem = (item: FileItem, response: string, status, headers) => {
             if (this.options.methodAfterSuccess && typeof this.options.methodAfterSuccess === 'function') {
@@ -50,8 +42,8 @@ export class DocumentUploadComponent implements OnInit {
         this.uploader.onWhenAddingFileFailed = (item, filter, options) => {
             if (filter.name === 'mimeType' || filter.name === 'fileSize') {
                 let extensions = '';
-                if (this.options.allowedMimeType) {
-                    this.options.allowedMimeType.forEach((extension: string) => {
+                if (this.options.allowedFileType) {
+                    this.options.allowedFileType.forEach((extension: string) => {
                         extensions = extensions + extension.split('/').pop() + ', ';
                     });
                 }
@@ -70,10 +62,10 @@ export class DocumentUploadComponent implements OnInit {
     }
 
     onAfterAddingFile(item: FileItem): void {
-        if (this.uploader.queue.length > 1) {
-            this.uploader.removeFromQueue(this.uploader.queue[0]);
+        if (this.options.queueLimit === 1) {
+            if (this.uploader.queue.length > 1) {
+                this.uploader.removeFromQueue(this.uploader.queue[0]);
+            }
         }
     }
-
-
 }
