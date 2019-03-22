@@ -19,9 +19,11 @@ export class UploadFileComponent implements OnInit {
 
     public ngOnInit(): void {
         this.options = {
-            method: 'POST',
-            url: this.url + '/staff-access/upload',
-
+            method: 'PUT',
+            url: this.url + '/upload',
+            /*allowedFileType: [
+                'application/x-yaml'
+            ],*/
             methodAfterSuccess: (item: FileItem, response: string) => {
                 this.router.navigate(['/users/all']);
             }

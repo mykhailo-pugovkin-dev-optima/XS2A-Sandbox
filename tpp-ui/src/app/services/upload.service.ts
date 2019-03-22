@@ -4,22 +4,25 @@ import {FileUploader} from 'ng2-file-upload';
 import {FileItem} from 'ng2-file-upload/file-upload/file-item.class';
 import {ParsedResponseHeaders} from 'ng2-file-upload/file-upload/file-uploader.class';
 import 'rxjs/add/operator/map';
+import {AuthService} from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UploadService {
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient,
+                private auth: AuthService) {
     }
 
     createInstanceFileUploader(options: UploadOptions): FileUploader {
         // Set the current user credentials in Headers for Basic Authorization
         const headers = [];
-        // TODO which token do we need to send?
-        const header = {name: 'Authorization', value: 'Bearer'};
-        headers.push(header);
-
+        const token = this.auth.getAuthorizationToken();
+        if (token) {
+            const header = {name: 'Authorization', value: `Bearer ${token}`};
+            headers.push(header);
+        }
         return new FileUploader(
             {
                 url: options.url,
