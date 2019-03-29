@@ -9,6 +9,7 @@ import {AisService} from '../common/services/ais.service';
 import {ShareDataService} from '../common/services/share-data.service';
 import {ObaUtils} from '../common/utils/oba-utils';
 import {catchError} from "rxjs/operators";
+import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 
 @Component({
     selector: 'app-login',
@@ -17,20 +18,29 @@ import {catchError} from "rxjs/operators";
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
+    loginForm: FormGroup;
+    invalidCredentials: boolean;
+
     private subscriptions: Subscription[] = [];
     private authorisationId: string;
     private encryptedConsentId: string;
-    loginForm: FormGroup;
-    invalidCredentials: boolean;
+    private overlayRef: OverlayRef;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private route: ActivatedRoute,
                 private aisService: AisService,
                 private shareService: ShareDataService,
+                private overlay: Overlay,
                 @Inject(URL_PARAMS_PROVIDER) params) {
         this.encryptedConsentId = params.encryptedConsentId;
         this.authorisationId = params.authorisationId;
+
+      // this.overlayRef = this.overlay.create({
+      //   hasBackdrop: false,
+      //   scrollStrategy: this.overlay.scrollStrategies.noop(),
+      //   positionStrategy: this.overlay.position().global().right(this.CORNER_OFFSET).bottom(this.CORNER_OFFSET)
+      // });
     }
 
     public ngOnInit(): void {

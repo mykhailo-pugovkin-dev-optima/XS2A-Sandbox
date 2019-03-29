@@ -2,6 +2,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 import {AccountDetailsComponent} from './account-details/account-details.component';
 import {BankOfferedComponent} from './bank-offered/bank-offered.component';
@@ -15,6 +16,8 @@ import {ShareDataService} from './common/services/share-data.service';
 import {LoginComponent} from './login/login.component';
 import {ResultPageComponent} from './result-page/result-page.component';
 import {ObaErrorsHandler} from "./common/interceptors/ObaErrorsHandler";
+import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
+import { SpinnerComponent } from './spinner-overlay/spinner/spinner.component';
 
 @NgModule({
     declarations: [
@@ -24,14 +27,17 @@ import {ObaErrorsHandler} from "./common/interceptors/ObaErrorsHandler";
         TanConfirmationComponent,
         BankOfferedComponent,
         AccountDetailsComponent,
-        ScaSelectionComponent
+        ScaSelectionComponent,
+        SpinnerOverlayComponent,
+        SpinnerComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        OverlayModule
     ],
     providers: [
         AisService,
