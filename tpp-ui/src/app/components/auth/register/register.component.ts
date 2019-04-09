@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
-import {CertGenerationService} from "../../../services/cert-generation.service";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+
 import {combineLatest} from "rxjs";
 import JSZip from 'jszip';
+
+import {AuthService} from "../../../services/auth.service";
+import {CertGenerationService} from "../../../services/cert-generation.service";
 import {InfoService} from "../../../commons/info/info.service";
 
 @Component({
@@ -14,17 +16,16 @@ import {InfoService} from "../../../commons/info/info.service";
 })
 export class RegisterComponent implements OnInit {
 
-
     public userForm: FormGroup;
     public certificateForm: FormGroup;
-
-    public rolesOptions = ['PIISP', 'PISP', 'AISP'];
+    public certificateFormValid: boolean = false;
+    public certificateValue: any;
 
     public generateCertificate: boolean;
     public submitted: boolean;
     public errorMessage: string; //TODO: errors handling with error interceptor
 
-    public static generateZipFile(certBlob, keyBlob): Promise<any> {
+    private generateZipFile(certBlob, keyBlob): Promise<any> {
         const zip = new JSZip();
         zip.file('certificate.pem', certBlob);
         zip.file('private.key', keyBlob);
@@ -34,30 +35,39 @@ export class RegisterComponent implements OnInit {
     constructor(private service: AuthService,
                 private certGenerationService: CertGenerationService,
                 private infoService: InfoService,
-                private router: Router) {
+                private router: Router,
+                private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.initializeRegisterForm();
-        this.initializeCertificateGeneratorForm();
     }
 
-    public onSubmit(branch: HTMLInputElement): void {
+    getCertificateFormStatus(event) {
+        this.certificateFormValid = event;
+    }
+
+    getCertificateValue(event) {
+        this.certificateValue = event;
+        console.log('value', this.certificateValue);
+    }
+
+    public onSubmit(): void {
+
+   /*     if (this.userForm.valid && this.certificateFormValid) {
+
+        }*/
+
+   const branch = this.userForm.get('branch').value;
+        console.log('certificate value', this.certificateValue);
         this.submitted = true;
 
-        if (this.userForm.invalid) {
-            return;
-        }
-
         if (this.generateCertificate) {
-            if (this.certificateForm.invalid) {
-                return;
-            }
 
             // combine observables
             combineLatest([
-                this.service.register(this.userForm.value, branch.value),
-                this.certGenerationService.generate(this.certificateForm.value)
+                this.service.register(this.userForm.value, branch),
+                this.certGenerationService.generate(this.certificateValue)
             ]).subscribe((combinedData: any) => {
 
                 // get cert generation params
@@ -79,7 +89,7 @@ export class RegisterComponent implements OnInit {
                 );
             });
         } else {
-            this.service.register(this.userForm.value, branch.value)
+            this.service.register(this.userForm.value, branch)
                 .subscribe(() => {
                     this.router.navigate(['/login'])
                         .then(() => {
@@ -94,42 +104,12 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    public handleTppRoles(roleInput: HTMLInputElement): void {
-        const roleInputValue = roleInput.value;
-
-        const roleIndex = this.roles.value.findIndex(role => roleInputValue === role);
-
-        if (roleIndex == -1) {
-            this.roles.push(new FormControl(roleInputValue));
-        } else {
-            this.roles.removeAt(roleIndex);
-        }
-    }
-
     private initializeRegisterForm(): void {
-        this.userForm = new FormGroup({
-            branch: new FormControl('', Validators.required),
-            login: new FormControl('', Validators.required),
-            email: new FormControl('', Validators.required),
-            pin: new FormControl('', Validators.required)
-        });
-    }
-
-    private initializeCertificateGeneratorForm(): void {
-        this.certificateForm = new FormGroup({
-            authorizationNumber: new FormControl('ID12345', Validators.required),
-            organizationName: new FormControl('Awesome TPP', Validators.required),
-            countryName: new FormControl('Germany'),
-            domainComponent: new FormControl('awesome-tpp.de', Validators.required),
-            localityName: new FormControl('Nuremberg'),
-            organizationUnit: new FormControl('IT department'),
-            stateOrProvinceName: new FormControl('Bayern'),
-            validity: new FormControl('365', [
-                Validators.required,
-                Validators.pattern("^[0-9]*$"),
-                Validators.min(0)
-            ]),
-            roles: new FormArray([], Validators.required)
+        this.userForm = this.formBuilder.group({
+            branch: ['', Validators.required],
+            login: ['', Validators.required],
+            email: ['', Validators.required],
+            pin: ['', Validators.required]
         });
     }
 
@@ -140,7 +120,7 @@ export class RegisterComponent implements OnInit {
         const blobKey = new Blob([privateKey], {
             type: 'text/plain',
         });
-        return RegisterComponent.generateZipFile(blobCert, blobKey).then(
+        return this.generateZipFile(blobCert, blobKey).then(
             zip => {
                 return window.URL.createObjectURL(zip);
             }
@@ -157,7 +137,7 @@ export class RegisterComponent implements OnInit {
         document.body.removeChild(element);
     }
 
-    // user form controls
+/*    // user form controls
     get login() {
         return this.userForm.get('login');
     }
@@ -193,5 +173,5 @@ export class RegisterComponent implements OnInit {
 
     get roles(): FormArray {
         return <FormArray>this.certificateForm.get('roles');
-    }
+    }*/
 }

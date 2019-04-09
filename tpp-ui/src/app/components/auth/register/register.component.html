@@ -1,4 +1,4 @@
-<div id="register">
+<!--<div id="register">
     <div class="container">
         <div id="register-row" class="row justify-content-center align-items-center">
             <div id="register-column" class="col-md-6">
@@ -85,7 +85,7 @@
                             <h5 class="card-title">Certificate generation</h5>
                             <form [formGroup]="certificateForm" autocomplete="off">
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Authorization Number*</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -99,7 +99,7 @@
                                             Authorization Number required
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Country</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -111,7 +111,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>State</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -120,7 +120,7 @@
                                                placeholder="State"
                                                formControlName="stateOrProvinceName"/>
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>City</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -132,7 +132,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Organization Name*</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -146,7 +146,7 @@
                                             Organization Name required
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Domain</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -158,7 +158,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Validity (days)*</label>
                                         <input type="number"
                                                autocomplete="off"
@@ -172,7 +172,7 @@
                                             Validity required
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-12 col-md-6">
                                         <label>Organization Unit</label>
                                         <input type="text"
                                                autocomplete="off"
@@ -206,6 +206,97 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="mt-5"></div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="userForm" autocomplete="off" class="mb-3">
+                <h3 class="card-title text-center">Adorsys TPP Sandbox</h3>
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                    {{errorMessage}}
+                </div>
+
+                <div class="form-group">
+                    <label for="branch" class="form-group required">Your TPP ID</label>
+                    <input type="text"
+                           autocomplete="off"
+                           class="form-control"
+                           id="branch"
+                           placeholder="please input your TPP ID"
+                           formControlName="branch"
+                           [ngClass]="{'is-invalid': userForm.get('branch')?.errors && userForm.get('branch')?.dirty}">
+                    <div class="invalid-feedback" *ngIf="userForm.get('branch')?.errors?.required && userForm.get('branch')?.dirty">
+                        TPP ID is Required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email"
+                           autocomplete="off"
+                           class="form-control"
+                           placeholder="Your contact email"
+                           id="email"
+                           formControlName="email"
+                           [ngClass]="{'is-invalid': userForm.get('email')?.errors && userForm.get('email')?.dirty}">
+                    <div class="invalid-feedback"
+                         *ngIf="userForm.get('email')?.errors?.required && userForm.get('email')?.dirty">
+                       Email is Required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerTTP" class="form-group required">Login</label>
+                    <input type="text"
+                           autocomplete="off"
+                           class="form-control"
+                           id="registerTTP"
+                           placeholder="your login into TTP sandbox"
+                           formControlName="login"
+                           [ngClass]="{'is-invalid': userForm.get('login')?.errors && userForm.get('login')?.dirty}">
+                    <div class="invalid-feedback"
+                         *ngIf="userForm.get('login')?.errors?.required && userForm.get('login')?.dirty">
+                        Login is Required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pin">PIN</label>
+                    <input type="password"
+                           autocomplete="new-password"
+                           class="form-control"
+                           id="pin"
+                           placeholder="your pin for TPP dashboard access"
+                           formControlName="pin"
+                           [ngClass]="{'is-invalid': userForm.get('pin')?.errors && userForm.get('pin')?.dirty}">
+                    <div class="invalid-feedback"
+                         *ngIf="userForm.get('pin')?.errors?.required && userForm.get('pin')?.dirty">
+                        Pin is Required
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           id="generateCertificate"
+                           [checked]="generateCertificate"
+                           (change)="generateCertificate = !generateCertificate">
+                    <label class="form-check-label" for="generateCertificate">Generate Certificate</label>
+                </div>
+            </form>
+            <div class="" *ngIf="generateCertificate">
+                <app-certificate (certificateValue)="getCertificateValue($event)" (certificateFormStatus)="getCertificateFormStatus($event)"></app-certificate>
+            </div>
+
+            <div class="">
+                <button (click)="onSubmit()" class="btn btn-info"
+                        [disabled]="userForm?.invalid || (generateCertificate&&!certificateFormValid)"
+                        [innerHTML]="!generateCertificate ?'Register': 'Register & Generate'"></button>
+                <a routerLink="/login" class="btn btn-link">Login</a>
             </div>
         </div>
     </div>
