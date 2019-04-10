@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {combineLatest} from "rxjs";
 import JSZip from 'jszip';
@@ -12,25 +12,16 @@ import {InfoService} from "../../../commons/info/info.service";
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+    styleUrls: ['../auth.component.css']
 })
 export class RegisterComponent implements OnInit {
 
     public userForm: FormGroup;
-    public certificateForm: FormGroup;
-    public certificateFormValid: boolean = false;
-    public certificateValue: any;
+    public certificateValue = {};
 
     public generateCertificate: boolean;
     public submitted: boolean;
     public errorMessage: string; //TODO: errors handling with error interceptor
-
-    private generateZipFile(certBlob, keyBlob): Promise<any> {
-        const zip = new JSZip();
-        zip.file('certificate.pem', certBlob);
-        zip.file('private.key', keyBlob);
-        return zip.generateAsync({ type: 'blob' });
-    }
 
     constructor(private service: AuthService,
                 private certGenerationService: CertGenerationService,
@@ -43,26 +34,16 @@ export class RegisterComponent implements OnInit {
         this.initializeRegisterForm();
     }
 
-    getCertificateFormStatus(event) {
-        this.certificateFormValid = event;
-    }
-
     getCertificateValue(event) {
         this.certificateValue = event;
-        console.log('value', this.certificateValue);
     }
 
     public onSubmit(): void {
 
-   /*     if (this.userForm.valid && this.certificateFormValid) {
-
-        }*/
-
-   const branch = this.userForm.get('branch').value;
-        console.log('certificate value', this.certificateValue);
+        const branch = this.userForm.get('branch').value;
         this.submitted = true;
 
-        if (this.generateCertificate) {
+        if (this.generateCertificate && this.certificateValue) {
 
             // combine observables
             combineLatest([
@@ -95,13 +76,32 @@ export class RegisterComponent implements OnInit {
                         .then(() => {
                             this.infoService.openFeedback(`You have been successfully registered.`);
                         });
-                    }, () => {
-                        this.infoService.openFeedback('TPP with this login or email exists already', {
-                            severity: 'error'
-                        })
+                }, () => {
+                    this.infoService.openFeedback('TPP with this login or email exists already', {
+                        severity: 'error'
+                    })
                 });
 
         }
+    }
+
+    private navigateAndGiveFeedback(url: string, message: string) {
+        this.router.navigate(['/login'])
+            .then(() => {
+                this.infoService.openFeedback(message);
+                if (url) {
+                    setTimeout(() => {
+                        this.downloadFile(url);
+                    }, 2000, url)
+                }
+            })
+    }
+
+    private generateZipFile(certBlob, keyBlob): Promise<any> {
+        const zip = new JSZip();
+        zip.file('certificate.pem', certBlob);
+        zip.file('private.key', keyBlob);
+        return zip.generateAsync({type: 'blob'});
     }
 
     private initializeRegisterForm(): void {
@@ -136,42 +136,4 @@ export class RegisterComponent implements OnInit {
         element.click();
         document.body.removeChild(element);
     }
-
-/*    // user form controls
-    get login() {
-        return this.userForm.get('login');
-    }
-
-    get branch() {
-        return this.userForm.get('branch');
-    }
-
-    get email() {
-        return this.userForm.get('email');
-    }
-
-    get pin() {
-        return this.userForm.get('pin');
-    }
-
-    // certificate generation form controls
-    get authorizationNumber(): FormControl {
-        return <FormControl>this.certificateForm.get('authorizationNumber');
-    }
-
-    get organizationName(): FormControl {
-        return <FormControl>this.certificateForm.get('organizationName');
-    }
-
-    get domainComponent(): FormControl {
-        return <FormControl>this.certificateForm.get('domainComponent');
-    }
-
-    get validity(): FormControl {
-        return <FormControl>this.certificateForm.get('validity');
-    }
-
-    get roles(): FormArray {
-        return <FormArray>this.certificateForm.get('roles');
-    }*/
 }
