@@ -108,4 +108,26 @@ public interface PISApi {
     ResponseEntity<PaymentAuthorizeResponse> failPaymentAuthorisation(@PathVariable("encryptedPaymentId") String encryptedPaymentId,
                                                            @PathVariable("authorisationId") String authorisationId,
                                                            @RequestHeader(name = "Cookie", required = false) String cookieString);
+
+    /**
+     * This call provides the server with the opportunity to close this session and
+     * redirect the PSU to the TPP or close the application window.
+     * <p>
+     * In any case, the session of the user will be closed and cookies will be deleted.
+     *
+     * @param encryptedPaymentId
+     * @param authorisationId
+     * @return
+     */
+    @GetMapping(path = "/{encryptedPaymentId}/authorisation/{authorisationId}/done", params = {"forgetConsent", "backToTpp"})
+    @ApiOperation(value = "Close cosent session", authorizations = @Authorization(value = "apiKey"),
+        notes = "This call provides the server with the opportunity to close this session and "
+                    + "redirect the PSU to the TPP or close the application window.")
+    ResponseEntity<PaymentAuthorizeResponse> pisDone(
+        @PathVariable("encryptedPaymentId") String encryptedPaymentId,
+        @PathVariable("authorisationId") String authorisationId,
+        @RequestHeader(name = "Cookie", required = false) String consentAndaccessTokenCookieString,
+        @RequestParam(name = "forgetConsent", required = false) Boolean forgetConsent,
+        @RequestParam(name = "backToTpp", required = false) Boolean backToTpp);
+
 }

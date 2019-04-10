@@ -56,6 +56,11 @@ public class PisCancellationController extends AbstractXISController implements 
     @Autowired
     private PeriodicPaymentMapper periodicPaymentMapper;
 
+
+    private ScaStatusTO scaStatus;
+    private String tppNokRedirectUri;
+    private String tppOkRedirectUri;
+
     @SuppressWarnings("PMD.CyclomaticComplexity")
     @Override
     @ApiOperation(value = "Identifies the user by login an pin. Return sca methods information")
@@ -69,6 +74,11 @@ public class PisCancellationController extends AbstractXISController implements 
         PaymentWorkflow cancellationWorkflow;
         try {
             cancellationWorkflow = identifyPayment(encryptedPaymentId, authorisationId, false, consentCookieString, login, response, null);
+            CmsPaymentResponse payment = cancellationWorkflow.getPaymentResponse();
+            tppNokRedirectUri = payment.getTppNokRedirectUri();
+            tppOkRedirectUri = payment.getTppOkRedirectUri();
+            scaStatus = ScaStatusTO.RECEIVED;
+
         } catch (PaymentAuthorizeException e) {
             return e.getError();
         }
@@ -127,6 +137,7 @@ public class PisCancellationController extends AbstractXISController implements 
             selectMethod(scaMethodId, cancellationWorkflow);
 
             updateScaStatusPaymentStatusConsentData(psuId, cancellationWorkflow);
+            scaStatus = cancellationWorkflow.getAuthResponse().getScaStatus();
 
             responseUtils.setCookies(response, cancellationWorkflow.getConsentReference(), cancellationWorkflow.bearerToken().getAccess_token(), cancellationWorkflow.bearerToken().getAccessTokenObject());
             return ResponseEntity.ok(cancellationWorkflow.getAuthResponse());
@@ -152,6 +163,7 @@ public class PisCancellationController extends AbstractXISController implements 
 
             cancellationWorkflow.setPaymentStatus(TransactionStatusTO.CANC.toString());
             updateScaStatusPaymentStatusConsentData(psuId, cancellationWorkflow);
+            scaStatus = cancellationWorkflow.getAuthResponse().getScaStatus();
 
             responseUtils.setCookies(response, cancellationWorkflow.getConsentReference(), cancellationWorkflow.bearerToken().getAccess_token(), cancellationWorkflow.bearerToken().getAccessTokenObject());
             return ResponseEntity.ok(cancellationWorkflow.getAuthResponse());
@@ -160,6 +172,17 @@ public class PisCancellationController extends AbstractXISController implements 
         } finally {
             authInterceptor.setAccessToken(null);
         }
+    }
+
+    @Override
+    public ResponseEntity<PaymentAuthorizeResponse> pisDone(String encryptedPaymentId, String authorisationId,
+                                                            String consentAndaccessTokenCookieString, Boolean forgetConsent, Boolean backToTpp) {
+        String redirectURL = tppNokRedirectUri;
+        if (ScaStatusTO.FINALISED.equals(scaStatus)) {
+            redirectURL = tppOkRedirectUri;
+        }
+
+        return responseUtils.redirect(redirectURL, response);
     }
 
     private void initiateCancelPayment(final PaymentWorkflow paymentWorkflow) throws PaymentAuthorizeException {

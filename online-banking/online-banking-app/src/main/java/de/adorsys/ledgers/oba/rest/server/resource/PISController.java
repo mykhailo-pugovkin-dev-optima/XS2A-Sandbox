@@ -53,6 +53,10 @@ public class PISController extends AbstractXISController implements PISApi {
     @Autowired
     private PeriodicPaymentMapper periodicPaymentMapper;
 
+    private ScaStatusTO scaStatus;
+    private String tppNokRedirectUri;
+    private String tppOkRedirectUri;
+
     @Override
     public ResponseEntity<AuthorizeResponse> pisAuth(String redirectId, String encryptedPaymentId) {
         return auth(redirectId, ConsentType.PIS, encryptedPaymentId, request, response);
@@ -71,6 +75,10 @@ public class PISController extends AbstractXISController implements PISApi {
         PaymentWorkflow workflow;
         try {
             workflow = identifyPayment(encryptedPaymentId, authorisationId, false, consentCookieString, login, response, null);
+            CmsPaymentResponse payment = workflow.getPaymentResponse();
+            scaStatus = ScaStatusTO.RECEIVED;
+            tppNokRedirectUri = payment.getTppNokRedirectUri();
+            tppOkRedirectUri = payment.getTppOkRedirectUri();
         } catch (PaymentAuthorizeException e) {
             return e.getError();
         }
@@ -133,6 +141,7 @@ public class PISController extends AbstractXISController implements PISApi {
             // Update status
             workflow.getScaResponse().setScaStatus(ScaStatusTO.PSUAUTHENTICATED);
             updateAuthorisationStatus(workflow, psuId, response);
+            scaStatus = workflow.getAuthResponse().getScaStatus();
 
             initiatePayment(workflow, response);
             updateScaStatusPaymentStatusConsentData(psuId, workflow);
@@ -156,6 +165,7 @@ public class PISController extends AbstractXISController implements PISApi {
             selectMethod(scaMethodId, workflow);
 
             updateScaStatusPaymentStatusConsentData(psuId, workflow);
+            scaStatus = workflow.getAuthResponse().getScaStatus();
 
             responseUtils.setCookies(response, workflow.getConsentReference(), workflow.bearerToken().getAccess_token(), workflow.bearerToken().getAccessTokenObject());
             return ResponseEntity.ok(workflow.getAuthResponse());
@@ -180,6 +190,7 @@ public class PISController extends AbstractXISController implements PISApi {
             processPaymentResponse(workflow, scaPaymentResponse);
 
             updateScaStatusPaymentStatusConsentData(psuId, workflow);
+            scaStatus = workflow.getAuthResponse().getScaStatus();
 
             responseUtils.setCookies(response, workflow.getConsentReference(), workflow.bearerToken().getAccess_token(), workflow.bearerToken().getAccessTokenObject());
             return ResponseEntity.ok(workflow.getAuthResponse());
@@ -210,6 +221,17 @@ public class PISController extends AbstractXISController implements PISApi {
         } finally {
             authInterceptor.setAccessToken(null);
         }
+    }
+
+    @Override
+    public ResponseEntity<PaymentAuthorizeResponse> pisDone(String encryptedPaymentId, String authorisationId,
+                                                            String consentAndaccessTokenCookieString, Boolean forgetConsent, Boolean backToTpp) {
+        String redirectURL = tppNokRedirectUri;
+        if (ScaStatusTO.FINALISED.equals(scaStatus)) {
+            redirectURL = tppOkRedirectUri;
+        }
+
+        return responseUtils.redirect(redirectURL, response);
     }
 
     private void updateScaStatusPaymentStatusConsentData(String psuId, PaymentWorkflow workflow)
