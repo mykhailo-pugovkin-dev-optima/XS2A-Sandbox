@@ -27,7 +27,7 @@ import {UploadFileComponent} from './uploadFile/uploadFile.component';
 import {TestDataGenerationComponent} from "./components/testDataGeneration/test-data-generation.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InfoModule} from "./commons/info/info.module";
-import { CertificateComponent } from './components/auth/certificate/certificate.component';
+import {CertificateComponent} from "./components/auth/certificate/certificate.component";
 
 @NgModule({
     declarations: [

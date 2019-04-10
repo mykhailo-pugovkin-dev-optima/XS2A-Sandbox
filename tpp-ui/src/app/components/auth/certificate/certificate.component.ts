@@ -4,27 +4,53 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
     selector: 'app-certificate',
     templateUrl: './certificate.component.html',
-    styleUrls: ['./certificate.component.css']
+    styleUrls: ['../auth.component.css']
 })
 export class CertificateComponent implements OnInit {
 
-
-    @Output() certificateFormStatus = new EventEmitter();
     @Output() certificateValue = new EventEmitter();
 
     certificateFormGroup: FormGroup;
-    public rolesOptions:  Array<String> = ['PIISP', 'PISP', 'AISP'];
-    rolesOptionsError: Boolean = true;
-    selectedTests = [];
+    rolesOptionsError: Boolean = false;
+
+    public roles: Array<string> = ['PIISP', 'PISP', 'AISP'];
+    selectedOptions = [];
 
     constructor(private formBuilder: FormBuilder) {}
 
     ngOnInit() {
         this.initializeCertificateGeneratorForm();
-        this.certificateFormGroup.valid
     }
 
-    private initializeCertificateGeneratorForm(): void {
+    addCheckboxControls() {
+        const arr = this.roles.map(() => {
+            return this.formBuilder.control(false);
+        });
+        arr[0] = this.formBuilder.control(true);
+        return this.formBuilder.array(arr);
+    }
+
+    getSelectedCheckboxValue() {
+        this.selectedOptions = [];
+        this.checkboxArray.controls.forEach((control, i) => {
+            if (control.value) {
+                this.selectedOptions.push(this.roles[i]);
+            }
+        });
+        this.rolesOptionsError = this.selectedOptions.length <= 0;
+        this.certificateFormGroup.value.roles = this.selectedOptions;
+    }
+
+    onChange() {
+        const status = this.certificateFormGroup.valid && !this.rolesOptionsError;
+        if (status) {
+            this.certificateValue.emit(this.certificateFormGroup.value);
+        } else {
+            this.certificateValue.emit(false);
+        }
+    }
+
+    public initializeCertificateGeneratorForm(): void {
         this.certificateFormGroup = this.formBuilder.group({
             authorizationNumber: ['ID12345', Validators.required],
             organizationName: ['Awesome TPP', Validators.required],
@@ -39,39 +65,11 @@ export class CertificateComponent implements OnInit {
                     Validators.pattern("^[0-9]*$"),
                 ]
             ],
-            rolesOptions: this.addCheckboxControls(),
+            roles: this.addCheckboxControls(),
         });
-    }
-    addCheckboxControls() {
-        const arr = this.rolesOptions.map(() => {
-            return this.formBuilder.control(false);
-        });
-        return this.formBuilder.array(arr);
     }
 
     get checkboxArray() {
-        return <FormArray>this.certificateFormGroup.get('rolesOptions');
-    }
-
-    getSelectedCheckboxValue() {
-        this.selectedTests = [];
-        this.checkboxArray.controls.forEach((control, i) => {
-            if (control.value) {
-                this.selectedTests.push(this.rolesOptions[i]);
-            }
-        });
-        this.rolesOptionsError =  this.selectedTests.length > 0 ? false : true;
-    }
-
-    onChange() {
-        const status = this.certificateFormGroup.valid && !this.rolesOptionsError;
-        console.log(this.certificateFormGroup.value, status);
-
-        if(status) {
-            console.log(this.certificateFormGroup.get('rolesOptions'));
-             this.certificateValue.emit(this.certificateFormGroup.value);
-        }
-        this.certificateFormStatus.emit(status);
-
+        return <FormArray>this.certificateFormGroup.get('roles');
     }
 }
