@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
         this.submitted = true;
 
         if (this.generateCertificate && this.certificateValue) {
-
             // combine observables
             combineLatest([
                 this.service.register(this.userForm.value, branch),

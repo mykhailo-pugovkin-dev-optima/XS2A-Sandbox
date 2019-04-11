@@ -14,12 +14,13 @@ export class CertificateComponent implements OnInit {
     rolesOptionsError: Boolean = false;
 
     public roles: Array<string> = ['PIISP', 'PISP', 'AISP'];
-    selectedOptions = [];
+    selectedOptions = ['PIISP'];
 
     constructor(private formBuilder: FormBuilder) {}
 
     ngOnInit() {
         this.initializeCertificateGeneratorForm();
+        this.onChange();
     }
 
     addCheckboxControls() {
@@ -38,10 +39,10 @@ export class CertificateComponent implements OnInit {
             }
         });
         this.rolesOptionsError = this.selectedOptions.length <= 0;
-        this.certificateFormGroup.value.roles = this.selectedOptions;
     }
 
     onChange() {
+        this.certificateFormGroup.value.roles = this.selectedOptions;
         const status = this.certificateFormGroup.valid && !this.rolesOptionsError;
         if (status) {
             this.certificateValue.emit(this.certificateFormGroup.value);
