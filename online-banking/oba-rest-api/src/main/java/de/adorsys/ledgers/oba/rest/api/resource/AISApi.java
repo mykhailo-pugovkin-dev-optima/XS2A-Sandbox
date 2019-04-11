@@ -136,7 +136,7 @@ public interface AISApi {
      * @return
      */
     @GetMapping(path = "/{encryptedConsentId}/authorisation/{authorisationId}/done", params = {"forgetConsent", "backToTpp"})
-    @ApiOperation(value = "Close cosent session", authorizations = @Authorization(value = "apiKey"),
+    @ApiOperation(value = "Close consent session", authorizations = @Authorization(value = "apiKey"),
         notes = "This call provides the server with the opportunity to close this session and "
                     + "redirect the PSU to the TPP or close the application window.")
     ResponseEntity<ConsentAuthorizeResponse> aisDone(
@@ -147,10 +147,10 @@ public interface AISApi {
         @RequestParam(name = "backToTpp", required = false) Boolean backToTpp);
 
     /**
-     * Revokes AIS Consent object by its ID. Consent gets status "Revoked by PSU".
+     * Fails AIS Consent authorisation object by its ID.
      *
      * @param encryptedConsentId ID of Consent
-     * @return <code>true</code> if consent was found and revoked. <code>false</code> otherwise.
+     * @return <code>true</code> if consent authorisation was found and failed. <code>false</code> otherwise.
      */
     @DeleteMapping(path = "/{encryptedConsentId}/{authorisationId}")
     @ApiOperation(value = "Revoke consent", authorizations = @Authorization(value = "apiKey"),
