@@ -2,7 +2,7 @@
 This is a first release of **PSD2 Dynamic Sandbox**
 
 Current version consists of following components:
-1. **Ledgers v.0.3.6.1**
+1. **Ledgers v.0.3.8**
 2. **XS2A v.2.1.1**
 3. **ASPSP-Profile v.2.1.1**
 4. **Consent-Management v.2.1.1**
@@ -42,6 +42,14 @@ Ledgers represent a dynamic emulation of a banking back-end
     * Additional features like: get all Accounts/Users for current branch.
     * Bulk Test data upload for TPP (Users/Accounts/Balances for testing purposes. Only YAML format currently supported. **Warning!** Data can not be overwritten due to blockchain transaction security, data is only updated if already present, in case of balances money is deposited if value at ledger is less than one set in uploaded file).
     * NISP Test data generation with automatic application of generated data over ledgers in on behalf of current TPP. A file is also exposed for downloading. 
+
+#### Updates in version v.0.3.8:
+* Multi-level SCA for PIS and AIS
+* Added **develop** profile:
+   * TAN generation Service is mocked with “123456” TAN.
+   * Test Users and accounts are created at Ledgers
+If **develop** profile is not found among active stat profiles Ledgers will start in production/demo mode with Production TAN Generation Service (random TAN) and without test users and accounts.
+
 ## XS2A
 See xs2a release notes
 ## ASPSP-Profile
