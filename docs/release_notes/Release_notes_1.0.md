@@ -9,13 +9,13 @@ Current version consists of following components:
 5. **XS2A-Gateway v.0.3**
 6. **TPP-UI v.1.0**
 7. **Online-Banking-UI v.1.0**
-8. **TPP-Certificate-Generator**
-9. **Developer Portal**
+8. **TPP-Certificate-Generator v.1.0**
+9. **Developer Portal v.1.0**
 
-## Features
-###Ledgers
+# Features
+## Ledgers
 Ledgers represent a dynamic emulation of a banking back-end
-#### Features:
+### Features:
 * User Management System:
     * Creation of users with roles (CUSTOMER, STAFF, TECHNICAL, SYSTEM)
     * Assigning account accesses
@@ -42,20 +42,26 @@ Ledgers represent a dynamic emulation of a banking back-end
     * Additional features like: get all Accounts/Users for current branch.
     * Bulk Test data upload for TPP (Users/Accounts/Balances for testing purposes. Only YAML format currently supported. **Warning!** Data can not be overwritten due to blockchain transaction security, data is only updated if already present, in case of balances money is deposited if value at ledger is less than one set in uploaded file).
     * NISP Test data generation with automatic application of generated data over ledgers in on behalf of current TPP. A file is also exposed for downloading. 
-###XS2A
+## XS2A
 See xs2a release notes
-###ASPSP-Profile
+## ASPSP-Profile
 See aspsp-profile release notes
-###Consent-Management
+## Consent-Management
 See cms release notes
-###XS2A-Gateway
+## XS2A-Gateway
 Implementation of xs2a interface for Ledgers banking back-end
 * All currently supported xs2a features from v.2.1.1 except: Multi-currency accounting and Multi Level SCA
-###TPP-UI
+## TPP-UI
 Angular front-end application for TPP services of Ledgers
-###Online-Banking-UI
-Angular front-end application for implementation of Redirect approach
-###Features:
-* AIS Bank Offered Consent authorisation and validation
+## Online-Banking-UI
+Angular front-end application for implementation of Redirect approach.
+
+### Support of dedicated and bank-offered account consent
+
+UI for AIS supports both dedicated and bank-offered account consent. In case of dedicated accounts consent UI shows only account accesses
+stored in consent. In case of bank-offered account consent user can choose ibans and accesses for the consent. The status of the consent 
+is updated from 'RECEIVED' to 'VALID' in Consent-Management in case of successful authorisation.
+
+
 ###TPP-Certificate-Generator
 Utility to generate TPP Qualified Website Authentication Certificate to grant TPP the access to XS2A API
