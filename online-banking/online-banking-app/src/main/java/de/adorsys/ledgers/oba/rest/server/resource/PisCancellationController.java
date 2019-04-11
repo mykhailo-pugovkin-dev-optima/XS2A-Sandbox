@@ -56,7 +56,7 @@ public class PisCancellationController extends AbstractXISController implements 
     @Autowired
     private PeriodicPaymentMapper periodicPaymentMapper;
 
-
+    //TODO remove and refactor https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox/issues/43
     private ScaStatusTO scaStatus;
     private String tppNokRedirectUri;
     private String tppOkRedirectUri;
@@ -176,16 +176,15 @@ public class PisCancellationController extends AbstractXISController implements 
 
     @Override
     public ResponseEntity<PaymentAuthorizeResponse> pisDone(String encryptedPaymentId, String authorisationId,
-                                                            String consentAndaccessTokenCookieString, Boolean forgetConsent, Boolean backToTpp) {
-        String redirectURL = tppNokRedirectUri;
-        if (ScaStatusTO.FINALISED.equals(scaStatus)) {
-            redirectURL = tppOkRedirectUri;
-        }
+                                                            String consentAndAccessTokenCookieString, Boolean forgetConsent, Boolean backToTpp) {
+        String redirectURL = ScaStatusTO.FINALISED.equals(scaStatus)
+                                 ? tppNokRedirectUri
+                                 : tppOkRedirectUri;
 
         return responseUtils.redirect(redirectURL, response);
     }
 
-    private void initiateCancelPayment(final PaymentWorkflow paymentWorkflow) throws PaymentAuthorizeException {
+    private void initiateCancelPayment(final PaymentWorkflow paymentWorkflow) {
         try {
             authInterceptor.setAccessToken(paymentWorkflow.bearerToken().getAccess_token());
             SCAPaymentResponseTO paymentResponseTO = paymentRestClient.initiatePmtCancellation(paymentWorkflow.paymentId()).getBody();
