@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
 
         const branch = this.userForm.get('branch').value;
         this.submitted = true;
+        let message: string;
 
         if (this.generateCertificate && this.certificateValue) {
             // combine observables
@@ -54,27 +55,17 @@ export class RegisterComponent implements OnInit {
                 const encodedCert = combinedData[1].encodedCert;
                 const privateKey = combinedData[1].privateKey;
 
-                this.createZipUrl(encodedCert, privateKey).then(url =>
-                    this.router.navigate(['/login'])
-                        .then(() => {
-
-                            this.infoService.openFeedback(`You have been successfully registered and your certificate generated.
-                            The download will start automatically within the 2 seconds`);
-
-                            setTimeout(() => {
-                                this.downloadFile(url);
-                            }, 2000, url)
-
-                        })
+                this.createZipUrl(encodedCert, privateKey).then(url => {
+                        message = 'You have been successfully registered and your certificate generated. The download will start automatically within the 2 seconds';
+                        this.navigateAndGiveFeedback(url, message);
+                    }
                 );
             });
         } else {
             this.service.register(this.userForm.value, branch)
                 .subscribe(() => {
-                    this.router.navigate(['/login'])
-                        .then(() => {
-                            this.infoService.openFeedback(`You have been successfully registered.`);
-                        });
+                    message = 'You have been successfully registered.';
+                    this.navigateAndGiveFeedback('', message);
                 }, () => {
                     this.infoService.openFeedback('TPP with this login or email exists already', {
                         severity: 'error'
