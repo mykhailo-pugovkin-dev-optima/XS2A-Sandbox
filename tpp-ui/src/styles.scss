@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+//@import "~bootstrap/dist/css/bootstrap.css";
+@import "./assets/themes/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+@import "~font-awesome/css/font-awesome.css";
+@import "~material-icons/iconfont/material-icons.css";
+@import "./assets/themes/variables";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    color: $light-grey;
+    font-size: 1.3rem;
+}
+
+
+.btn {
+    color: $btn-text-color;
+    margin-bottom: 1.1rem;
+
+    &:hover {
+        transition: 0.5s;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:active {
+        background-color: inherit;
+    }
+
+    &-primary {
+        background: $primary-gradient;
+        border: none;
+    }
+}

@@ -4,7 +4,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
     selector: 'app-certificate',
     templateUrl: './certificate.component.html',
-    styleUrls: ['../auth.component.css']
+    styleUrls: ['../auth.component.scss']
 })
 export class CertificateComponent implements OnInit {
 
