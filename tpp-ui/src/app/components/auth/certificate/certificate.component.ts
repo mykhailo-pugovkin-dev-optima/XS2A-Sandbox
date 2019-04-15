@@ -14,7 +14,7 @@ export class CertificateComponent implements OnInit {
     rolesOptionsError: Boolean = false;
 
     public roles: Array<string> = ['PIISP', 'PISP', 'AISP'];
-    selectedOptions = ['PIISP'];
+    selectedOptions = ['PIISP', 'PISP', 'AISP'];
 
     constructor(private formBuilder: FormBuilder) {}
 
@@ -25,9 +25,8 @@ export class CertificateComponent implements OnInit {
 
     addCheckboxControls() {
         const arr = this.roles.map(() => {
-            return this.formBuilder.control(false);
+            return this.formBuilder.control(true);
         });
-        arr[0] = this.formBuilder.control(true);
         return this.formBuilder.array(arr);
     }
 
