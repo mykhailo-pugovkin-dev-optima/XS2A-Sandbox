@@ -5,6 +5,7 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~material-icons/iconfont/material-icons.css";
 @import "./assets/themes/variables";
+@import "./assets/themes/fonts";
 
 * {
     margin: 0;
@@ -13,7 +14,8 @@
 
 label {
     color: $light-grey;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    font-family: 'Metropolis', sans-serif;
 }
 
 
