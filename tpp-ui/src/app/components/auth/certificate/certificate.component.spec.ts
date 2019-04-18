@@ -34,7 +34,7 @@ fdescribe('CertificateComponent', () => {
     });
 
     it('certificateFormGroup should be valid by default', () => {
-        expect(component.certificateFormGroup.valid).toBeFalsy();
+        expect(component.certificateFormGroup.valid).toBeTruthy();
     });
 
     // Because we hardcoded the default value
