@@ -40,3 +40,31 @@ label {
         border: none;
     }
 }
+
+a {
+    font-size: 1.1rem;
+    color: $dark-80;
+
+    &.active {
+        color: $primary;
+    }
+
+    &:hover {
+        transition: 0.5s;
+    }
+}
+
+
+.icon__container {
+    width: 40px;
+}
+
+.nav-item {
+    &:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
+    .nav-link {
+        display: flex;
+        justify-content: flex-start;
+    }
+}
