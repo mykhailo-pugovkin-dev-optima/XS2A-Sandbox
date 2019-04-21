@@ -1,4 +1,4 @@
-package de.adorsys.psd2.sandbox.certificate.config.cors;
+package de.adorsys.psd2.sandbox.certificate.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
