@@ -31,9 +31,24 @@
         </dependency>
 
         <!-- Certificate generator -->
+        <!-- TODO use dependency from Maven central https://git.adorsys.de/adorsys/xs2a/psd2-dynamic-sandbox/issues/60 -->
         <dependency>
             <groupId>de.adorsys.psd2</groupId>
             <artifactId>psd2-certificate-generator</artifactId>
+            <version>${psd2.certificate.generator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/resources/lib/psd2-certificate-generator-1.5.0.jar</systemPath>
         </dependency>
 
     </dependencies>
@@ -55,6 +70,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
