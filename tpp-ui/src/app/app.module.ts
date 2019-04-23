@@ -28,6 +28,7 @@ import {TestDataGenerationComponent} from "./components/testDataGeneration/test-
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InfoModule} from "./commons/info/info.module";
 import {CertificateComponent} from "./components/auth/certificate/certificate.component";
+import {IconModule} from "./commons/icon/icon.module";
 
 @NgModule({
     declarations: [
@@ -57,6 +58,7 @@ import {CertificateComponent} from "./components/auth/certificate/certificate.co
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        IconModule,
         InfoModule,
         BrowserAnimationsModule,
         FileUploadModule

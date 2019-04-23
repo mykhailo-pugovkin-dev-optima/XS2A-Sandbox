@@ -18,10 +18,16 @@ label {
     font-family: 'Metropolis', sans-serif;
 }
 
+.header {
+    &__title {
+        font-size: 2rem;
+    }
+}
 
 .btn {
     color: $btn-text-color;
     margin-bottom: 1.1rem;
+    width: 200px;
 
     &:hover {
         transition: 0.5s;
@@ -54,9 +60,24 @@ a {
     }
 }
 
+.card {
+    .card-body{
+        &--large {
+            padding: 2rem 2rem;
+        }
+    }
+
+    &--small {
+        max-width: 500px;
+    }
+}
 
 .icon__container {
     width: 40px;
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .nav-item {

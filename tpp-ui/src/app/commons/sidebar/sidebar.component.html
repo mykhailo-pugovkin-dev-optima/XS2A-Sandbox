@@ -3,7 +3,7 @@
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/accounts']" class="nav-link ">
                 <div class="icon__container">
-                    <img src="./assets/icons/account.svg">
+                    <app-icon svgIcon="account" class="icon"></app-icon>
                 </div>
                 <span class="nav__title">Users Accounts</span>
             </a>
@@ -11,7 +11,7 @@
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/users/all']" class="nav-link ">
                 <div class="icon__container">
-                    <img src="./assets/icons/user.svg">
+                    <app-icon svgIcon="user"></app-icon>
                 </div>
                 <span class="nav__title">My users list</span>
             </a>
@@ -19,7 +19,7 @@
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/upload']" class="nav-link">
                 <div class="icon__container">
-                    <img src="./assets/icons/upload.svg">
+                    <app-icon svgIcon="upload"></app-icon>
                 </div>
                 <span class="nav__title">Upload File</span>
             </a>
