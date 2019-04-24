@@ -23,11 +23,9 @@ based upon your problem statement, the quality goals and key constraints.
 Refer to details in the following sections.
 ****
 
-NOTE: This area is TODO! (rat)
+image::xs2asandbox.svg[High-level Architecture XS2A Sandbox, 80%, title="High-level Architecture XS2A Sandbox", align="center"]
 
-image::accelerator.svg[High-level Architecture XS2A Sandbox, 80%, title="High-level Architecture XS2A Sandbox", align="center"]
-
-The XS2A Sandbox bundles two top level components: the _sandbox_ and the _ssl-proxy_. The _sandbox_ contains the XS2A API, does the certificate handling and provides documentation in the developer portal. The _ssl-proxy_ is responsible for doing <<SSL Client Authentication>> and is basically "just" infrastructure which does the SSL part and forwards the certificate as HTTP header. Most customers will provide their own implementation of it.
+The XS2A Sandbox bundles one top level component: the _sandbox_. The _sandbox_ contains the XS2A API (with XS2A Interface, ASPSP-profile and Consent-management system), does the certificate handling, provides TPP UI, Online Banking UI and documentation in the developer portal.
 
 
 === TPP Certificate Handling

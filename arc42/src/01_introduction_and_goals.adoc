@@ -17,7 +17,7 @@ The Berlin-Group Initiative https://www.berlin-group.org/[NextGenPSD2] joint for
 
 ==== XS2A Sandbox Project
 
-image::accelerator.svg[High-level Architecture XS2A Sandbox, 80%, title="High-level Architecture XS2A Sandbox", align="center"]
+image::xs2asandbox.svg[High-level Architecture XS2A Sandbox, 80%, title="High-level Architecture XS2A Sandbox", align="center"]
 
 According to the law every European bank must provide a sandbox so that TPPs can begin integrating against it. The adorsys XS2A Sandbox is a full implementation of this sandbox. It provides an XS2A API which is compliant to the Berlin Group XS2A spec (Version 1.3).
 

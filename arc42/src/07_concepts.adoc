@@ -3,14 +3,24 @@
 
 === Definition of Done
 
-* Code is technically reviewed by the developer
+* Code is technically reviewed by developer
 * Code is manually tested
+* Code is tested on test-environment
+* Code is reviewed (and approved) by another developer
+
 * Pipeline is running green
-** All existing tests are still working
-** Code Styling is followed
-** Branch is rebased and therefore ready to merge
-* Automatic test for new functionality is implemented (if applicable)
-* Documentation is updated (if applicable)
+    ** All existing tests are still working
+    ** Code Styling is followed
+    ** Branch is rebased and therefore ready to merge
+    ** Test coverage is fulfilled
+    ** Static code analysis pass
+* Automatic Tests for new functionality are implemented (if applicable)
+* Project documentation is updated (if applicable)
+* Javadocs for public methods are written (including parameter description). For REST interfaces Swagger-annotations are sufficient.
+* Conventions are fulfilled:
+    ** Clean commit history (rebase instead of merge)
+    ** Coding Guidelines
+    ** Frontend is optically deliverable
 
 === Supported Browsers
 
@@ -28,12 +38,3 @@ development.
 The frontend development is using https://github.com/palantir/tslint[tslint] for code-quality rules (no-unused vars,...). For code styling and formatting of HTML, Typescript and CSS/SCSS we use https://prettier.io/[Pretter]. The appropriate config files are `.prettierrc.json` and `tslint.json`. To guarantee a clean code styling on the remote branch, we decided to add a pre-push-hook which checks the style for errors and if possible also fixes them automatically. Furthermore, we added a second check embedded in the ci pipeline which fails in case of unclean code.
 
 The backend development (mostly Java code) is using the https://github.com/google/styleguide[Google Code Style] which can be found in the `service` folder named `google-checkstyle.xml`. After adding this file to the local IDE the automatic styling should apply to those rules. We decided to add a `maven-checkstyle-plugin` which allows the code style check during the build process. The configuration for this plugin is based on the `google-checkstyle.xml` which can also be found in the `service` folder of this project. In case of unformatted code the ci pipeline will fail with an appropriate error message.
-
-=== SSL Client Authentication
-
-The Sandbox acts as a CA which issues SSL client certificates required to access the provided XS2A API. Every Sandbox deployment (e.g. every customer) initially needs to generate a new CA primary key and certificate. Those artifacts are then used to issue the TPP client certificate. SSL Client Authentication is only used for the XS2A API.
-
-See also <<adorsys Sample Setup>> for more information about the SSL authentication setup.
-
-.sandbox-as-ca
-image::ssl-client.svg[Sandbox as CA Explained, title="Sandbox as CA Explained"]
