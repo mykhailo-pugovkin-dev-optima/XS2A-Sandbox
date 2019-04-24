@@ -8,7 +8,7 @@
 .deployment-view
 image::deployment-view.svg[Deployment View, 100%, align="center"]
 
-The PSD2 Accelerator consists of 10 deployments, united into one docker-compose file. The _sandbox_ itself provides the XS2A API and a 3 web applications (and its API): developer portal, online banking and TPP UI.
+The XS2A Sandbox consists of 10 deployments, united into one docker-compose file. The _sandbox_ itself provides the XS2A API and a 3 web applications (and its API): developer portal, online banking and TPP UI.
 XS2A API is hosted on port `:8080`, TPP UI is hosted on port `:4205`, online banking is hosted on port  `:4400` and the _developer portal_ is hosted on port `:4206` (all ports can be configured).
 XS2A needs access to a database to persist the Consent Management state.
 The configuration for the _sandbox_ is completely externalized (see <<Configuration>>).
@@ -81,7 +81,7 @@ Possible values are: _true_ or _false_            | _true_
 | SANDBOX_UI_CONTACT_MAILTO                       | Contact email address
 
  Format: _mailto:YOUR@MAILADRESS.DE_ | psd2@adorsys.de
-| SANDBOX_UI_LOGO_URL                                | URL to customized ui logo           | Points to the default psd2-accelerator logo embedded in the application
+| SANDBOX_UI_LOGO_URL                                | URL to customized ui logo           | Points to the default xs2a sandbox logo embedded in the application
 | SANDBOX_UI_CONTENT_URLS_DE_CERT                        | URL to customized german markdown file for certificate page | Points to the default german `create-cert-page.md` embedded in the application
 | SANDBOX_UI_CONTENT_URLS_DE_FAQ                        | URL to customized german markdown file for faq page | Points to the default german `faq-page.md` embedded in the application
 | SANDBOX_UI_CONTENT_URLS_DE_PORTAL                        | URL to customized german markdown file for portal page | Points to the default german `developer-portal-page.md` embedded in the application
@@ -126,6 +126,6 @@ We use a modified https://docs.spring.io/spring-boot/docs/1.5.18.RELEASE/referen
 
 The default log level is `INFO`. Set a different level with `LOGGING_LEVEL_ROOT=WARN` (global) or with `LOGGING_LEVEL_de.adorsys.psd2=WARN` (for everything below `de.adorsys.psd2`; please note the casing).
 
-To use a custom log configuration start the PSD2 Accelerator with `-Dlogging.config=my-logging-config.xml` to use your file at `$CWD/my-logging-config.xml`. See <<Configuration>>
+To use a custom log configuration start the XS2A Sandbox with `-Dlogging.config=my-logging-config.xml` to use your file at `$CWD/my-logging-config.xml`. See <<Configuration>>
 
 WARNING: If you use your own `logback.xml` we can't guarantee that the default Spring Boot configuration properties still work. Please check the docs thoroughly. Have a look at the https://docs.spring.io/spring-boot/docs/1.5.18.RELEASE/reference/html/howto-logging.html[Spring Boot logging configuration], the https://logback.qos.ch/manual/configuration.html[Logback Documentation] and our `logback.xml` to see whats possible.
