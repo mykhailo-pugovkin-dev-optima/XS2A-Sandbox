@@ -29,6 +29,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InfoModule} from "./commons/info/info.module";
 import {CertificateComponent} from "./components/auth/certificate/certificate.component";
 import {IconModule} from "./commons/icon/icon.module";
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import {IconModule} from "./commons/icon/icon.module";
         IconModule,
         InfoModule,
         BrowserAnimationsModule,
-        FileUploadModule
+        FileUploadModule,
+        NgHttpLoaderModule.forRoot()
     ],
     providers: [
         AuthGuard,
