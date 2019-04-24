@@ -6,7 +6,7 @@
 // configure EN settings for asciidoc
 include::src/config.adoc[]
 
-= image:logo/psd2-accelerator.svg[PSD2 Accelerator, 120] Architecture Documentation
+= image:logo_xas2a_sandbox.svg[XS2A Sandbox, 120] Architecture Documentation
 Sandbox Team <psd2-sandbox@adorsys.de>
 {acc-version}, {docdate}
 
