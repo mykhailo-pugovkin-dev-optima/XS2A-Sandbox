@@ -93,6 +93,6 @@ a|
 | Dmytro Storozhyk  | Product owner           | dst@adorsys.com.ua
 | Vladimir Nechai   | Developer               | vne@adorsys.de
 | Nicole Wesemeyer  | Business analyst        | nwe@adorsys.de
-| Francis Pouatcha  | Developer, business analyst | fpo@adorsys.de
+| Francis Pouatcha  | Developer, business analyst, Architect | fpo@adorsys.de
 | Julia Kantorski   | Designer                | jka@adorsys.de
 |===
