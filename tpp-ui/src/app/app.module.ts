@@ -30,6 +30,7 @@ import {InfoModule} from "./commons/info/info.module";
 import {CertificateComponent} from "./components/auth/certificate/certificate.component";
 import {IconModule} from "./commons/icon/icon.module";
 import {NgHttpLoaderModule} from 'ng-http-loader';
+import {FilterPipeModule} from "ngx-filter-pipe";
 
 @NgModule({
     declarations: [
@@ -63,6 +64,7 @@ import {NgHttpLoaderModule} from 'ng-http-loader';
         InfoModule,
         BrowserAnimationsModule,
         FileUploadModule,
+        FilterPipeModule,
         NgHttpLoaderModule.forRoot()
     ],
     providers: [

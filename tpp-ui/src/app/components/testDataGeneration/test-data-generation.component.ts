@@ -38,10 +38,6 @@ export class TestDataGenerationComponent implements OnInit {
                         link.click();
                     }, 3000);
 
-                },
-                error1 => (console.log(error1)),
-                () => {
-                    console.log('test');
                 });
     }
 }
