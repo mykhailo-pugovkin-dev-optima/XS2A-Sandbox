@@ -61,7 +61,7 @@ a {
 }
 
 .card {
-    .card-body{
+    .card-body {
         &--large {
             padding: 2rem 2rem;
         }
@@ -73,10 +73,20 @@ a {
 }
 
 .icon__container {
-    width: 40px;
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+
     .icon {
-        width: 20px;
-        height: 20px;
+        &--small {
+            width: 20px;
+            height: 20px;
+        }
+
+        &--medium {
+            width: 28px;
+            height: 28px;
+        }
     }
 }
 
@@ -84,6 +94,7 @@ a {
     &:not(:last-of-type) {
         margin-bottom: 10px;
     }
+
     .nav-link {
         display: flex;
         justify-content: flex-start;

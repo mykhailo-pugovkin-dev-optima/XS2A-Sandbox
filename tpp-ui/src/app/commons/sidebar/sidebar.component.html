@@ -3,7 +3,7 @@
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/accounts']" class="nav-link ">
                 <div class="icon__container">
-                    <app-icon svgIcon="account" class="icon"></app-icon>
+                    <app-icon svgIcon="account" inline="true"></app-icon>
                 </div>
                 <span class="nav__title">Users Accounts</span>
             </a>
@@ -11,7 +11,7 @@
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/users/all']" class="nav-link ">
                 <div class="icon__container">
-                    <app-icon svgIcon="user"></app-icon>
+                    <app-icon svgIcon="icon_user" inline="true" class="icon--medium"></app-icon>
                 </div>
                 <span class="nav__title">My users list</span>
             </a>
@@ -19,15 +19,17 @@
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/upload']" class="nav-link">
                 <div class="icon__container">
-                    <app-icon svgIcon="upload"></app-icon>
+                    <app-icon svgIcon="icon_upload" inline="true" class="icon--medium"></app-icon>
                 </div>
                 <span class="nav__title">Upload File</span>
             </a>
         </li>
         <li class="nav-item">
             <a [routerLinkActive]="['active']" [routerLink]="['/generate-test-data']" class="nav-link">
-                <span data-feather="generate-test-data"></span>
-                Generate Test Data
+                <div class="icon__container">
+                    <app-icon svgIcon="generate_test_data" inline="true"></app-icon>
+                </div>
+                <span class="nav__title">Generate Test Data</span>
             </a>
         </li>
     </ul>
