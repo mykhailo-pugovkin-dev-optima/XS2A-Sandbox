@@ -87,12 +87,12 @@ a|
 [options="header"]
 |===
 | Name              | Role                    | Contact
+| Francis Pouatcha  | Developer, business analyst, Architect | fpo@adorsys.de
+| Dmytro Storozhyk  | Product owner           | dst@adorsys.com.ua
 | Petro Rudenko     | Developer               | pru@adorsys.com.ua
 | Dmytro Mishchuk   | Developer               | dmi@adorsys.com.ua
 | Mariia Polikarpova| Developer               | mpo@adorsys.com.ua
-| Dmytro Storozhyk  | Product owner           | dst@adorsys.com.ua
 | Vladimir Nechai   | Developer               | vne@adorsys.de
 | Nicole Wesemeyer  | Business analyst        | nwe@adorsys.de
-| Francis Pouatcha  | Developer, business analyst, Architect | fpo@adorsys.de
 | Julia Kantorski   | Designer                | jka@adorsys.de
 |===
