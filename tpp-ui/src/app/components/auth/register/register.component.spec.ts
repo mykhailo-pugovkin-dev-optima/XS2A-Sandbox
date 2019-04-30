@@ -120,13 +120,14 @@ fdescribe('RegisterComponent', () => {
     });
 
     it(`Submit button should be enabled`, () => {
-        component.userForm.controls['branch'].setValue('test');
+        component.userForm.controls['branch'].setValue('88888888');
         component.userForm.controls['login'].setValue('test');
         component.userForm.controls['email'].setValue('asd@asd.com');
         component.userForm.controls['pin'].setValue('1234');
 
         registerFixture.detectChanges();
         el = registerFixture.debugElement.query(By.css('button')).nativeElement.disabled;
+        console.log(component.userForm.invalid);
         expect(el).toBeFalsy();
     });
 

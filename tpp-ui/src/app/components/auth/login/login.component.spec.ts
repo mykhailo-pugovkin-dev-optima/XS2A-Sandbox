@@ -81,9 +81,9 @@ fdescribe('LoginComponent', () => {
         expect(component.errorMessage).toEqual('Please enter your credentials');
     });
 
-/*    it('Set error message by button click and invalid form', () => {
+    it('Set error message by button click and invalid form', () => {
         el = fixture.debugElement.query(By.css('button')).nativeElement;
         el.click();
-        expect(component.errorMessage).toEqual('Please enter your credentials');
-    });*/
+        expect(component.errorMessage).not.toEqual(null);
+    });
 });
