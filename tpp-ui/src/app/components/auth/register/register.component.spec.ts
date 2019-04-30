@@ -127,7 +127,6 @@ fdescribe('RegisterComponent', () => {
 
         registerFixture.detectChanges();
         el = registerFixture.debugElement.query(By.css('button')).nativeElement.disabled;
-        console.log(component.userForm.invalid);
         expect(el).toBeFalsy();
     });
 
