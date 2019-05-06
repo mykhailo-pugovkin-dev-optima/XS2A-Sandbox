@@ -34,7 +34,7 @@ Here are links where you can install needed dependencies:
 | planuml            | http://plantuml.com/en/starting         |
 
 
-**Note**: check amount of memory given to **Docker** (Open Docker -> Preferences -> Advanced -> Memory). For a fast and painless start of all the services it should be not less than 5 GiB.
+**Note**: check amount of memory given to **Docker** (Open Docker -> Preferences -> Advanced -> Memory). For a fast and painless start of all the services it should be not less than 5 GB.
 
 3.Build and run the project with Makefile:
   
