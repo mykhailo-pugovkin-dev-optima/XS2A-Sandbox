@@ -5,6 +5,8 @@ networks:
 
 volumes:
   xs2a-connector-data:
+  xs2a-fakesmtp-data:
+  xs2a-ledgers-data:
 
 services:
 
@@ -130,7 +132,7 @@ services:
       - SPRING_MAIL_HOST=fakesmtp
       - SPRING_MAIL_PORT=25
     volumes:
-      - xs2a-connector-data:/var/lib/data
+      - xs2a-ledgers-data:/var/lib/data
     depends_on:
       - fakesmtp
 
@@ -190,4 +192,4 @@ services:
     networks:
       - xs2a-net
     volumes:
-      - xs2a-connector-data:/var/mail
+      - xs2a-fakesmtp-data:/var/mail
